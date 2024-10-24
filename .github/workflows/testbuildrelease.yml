@@ -218,7 +218,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
          sonar-scanner \
-            --define sonar.projectKey=Strooom_MuMo-v2-Node-SW \
+            --define sonar.projectKey=Strooom_PN7160 \
             --define sonar.organization=strooom-1 \
             --define sonar.coverageReportPaths=coverage.xml
 
