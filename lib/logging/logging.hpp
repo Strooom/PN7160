@@ -49,8 +49,8 @@ class logging {
     static void setActiveDestinations(uint32_t aDestinations) { activeDestinations = aDestinations; }
 
     static void dump();
-#ifndef unitTesting
 
+#ifndef unitTesting
   private:
 #endif
     static char buffer[bufferLength];          // in this buffer the snprintf is expanded before the contents is being sent to one or more of the destinations
