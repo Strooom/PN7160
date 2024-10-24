@@ -182,21 +182,7 @@ jobs:
       - name: Install PlatformIO Core
         run: |
           pip install --upgrade platformio
-          pio pkg install --environment dummy
-
-      - name: Install STM32CubeWL
-        uses: actions/checkout@v4
-        with:
-          repository: STMicroelectronics/STM32CubeWL
-          path: temp/framework-stm32cubewl
-          submodules: true
-
-      - name: Add stm32wle to PlatformIO platforms
-        run: |
-          cp -f .github/workflows/platform.json /home/runner/.platformio/platforms/ststm32/platform.json
-          cp -r temp/framework-stm32cubewl /home/runner/.platformio/packages/framework-stm32cubewl
-          cp -f .github/workflows/package.json /home/runner/.platformio/packages/framework-stm32cubewl/package.json
-          cp /home/runner/.platformio/packages/framework-stm32cubewl/Utilities/misc/stm32_systime_if_template.h /home/runner/.platformio/packages/framework-stm32cubewl/Utilities/misc/stm32_systime_if.h
+          pio pkg install --environment teensy_3_2
 
       - name: Check PlatformIO
         run: |
