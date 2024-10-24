@@ -182,7 +182,7 @@ jobs:
       - name: Install PlatformIO Core
         run: |
           pip install --upgrade platformio
-          pio pkg install --environment teensy_3_2
+          pio pkg install --environment production
 
       - name: Check PlatformIO
         run: |
