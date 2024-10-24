@@ -19,10 +19,10 @@ uint8_t PN7160Interface::IRQpin;
 uint8_t PN7160Interface::VENpin;
 uint8_t PN7160Interface::I2Caddress{0x28};
 
-void PN7160Interface::initialize(uint8_t theIRQpin, uint8_t theVENpin, uint8_t I2Caddress) {
+void PN7160Interface::initialize(uint8_t theIRQpin, uint8_t theVENpin, uint8_t theI2Caddress) {
     IRQpin     = theIRQpin;
     VENpin     = theVENpin;
-    I2Caddress = I2Caddress;
+    I2Caddress = theI2Caddress;
 #ifndef generic
     pinMode(IRQpin, INPUT);
     pinMode(VENpin, OUTPUT);
@@ -80,15 +80,15 @@ uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
         // using 'Split mode' I2C read. See UM10936 section 3.5
         bytesReceived = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
 
-        rxBuffer[0]           = Wire.read();
-        rxBuffer[1]           = Wire.read();
-        rxBuffer[2]           = Wire.read();
+        rxBuffer[0]           = static_cast<uint8_t>(Wire.read());
+        rxBuffer[1]           = static_cast<uint8_t>(Wire.read());
+        rxBuffer[2]           = static_cast<uint8_t>(Wire.read());
         uint8_t payloadLength = rxBuffer[2];
         if (payloadLength > 0) {
             bytesReceived += Wire.requestFrom(I2Caddress, payloadLength);        // then reading the payload, if any
             uint32_t index = 3;
             while (index < bytesReceived) {
-                rxBuffer[index] = Wire.read();
+                rxBuffer[index] = static_cast<uint8_t>(Wire.read());
                 index++;
             }
         }

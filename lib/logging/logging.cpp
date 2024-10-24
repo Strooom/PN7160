@@ -8,14 +8,13 @@
 #include <cstdio>
 #include <cstdarg>
 #include <logging.hpp>
+#ifndef generic
+#include <Arduino.h>
+#endif
 
 uint32_t logging::activeSources{0};
 uint32_t logging::activeDestinations{0};
 char logging::buffer[bufferLength]{};
-
-#ifndef generic
-#include <Arduino.h>
-#endif
 
 void logging::initialize() {
 #ifndef generic
@@ -25,7 +24,7 @@ void logging::initialize() {
 
 uint32_t logging::snprintf(const char *format, ...) {
     uint32_t length{0};
-    if (activeDestinations != 00) {
+    if (activeDestinations != 0) {
         va_list argList;
         va_start(argList, format);
         length = vsnprintf(buffer, bufferLength, format, argList);
@@ -37,15 +36,13 @@ uint32_t logging::snprintf(const char *format, ...) {
 
 uint32_t logging::snprintf(source aSource, const char *format, ...) {
     uint32_t length{0};
-    if (activeDestinations != 00) {
-        if (isActive(aSource)) {
+    if ((activeDestinations != 0) && (isActive(aSource))) {
             va_list argList;
             va_start(argList, format);
             length = vsnprintf(buffer, bufferLength, format, argList);
             va_end(argList);
             write(length);
         }
-    }
     return length;
 }
 
