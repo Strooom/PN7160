@@ -62,4 +62,4 @@ firmware.elf
 # #############################
 
 
-docs/examples/*
+docs/examples_NXP/**
