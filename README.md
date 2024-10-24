@@ -1,4 +1,4 @@
-# PN7150
+# PN7160
 Library/Driver for NXP PN7160 NFC device
 
 ![workflow](https://github.com/strooom/PN7160/actions/workflows/testbuildrelease.yml/badge.svg)

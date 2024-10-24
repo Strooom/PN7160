@@ -15,14 +15,14 @@
 #include <i2c_t3.h>
 #endif
 
-uint8_t PN7160Interface::IRQpin;
-uint8_t PN7160Interface::VENpin;
+uint8_t PN7160Interface::IRQpin{};
+uint8_t PN7160Interface::VENpin{};
 uint8_t PN7160Interface::I2Caddress{0x28};
 
-void PN7160Interface::initialize(uint8_t theIRQpin, uint8_t theVENpin, uint8_t I2Caddress) {
+void PN7160Interface::initialize(uint8_t theIRQpin, uint8_t theVENpin, uint8_t theI2Caddress) {
     IRQpin     = theIRQpin;
     VENpin     = theVENpin;
-    I2Caddress = I2Caddress;
+    I2Caddress = theI2Caddress;
 #ifndef generic
     pinMode(IRQpin, INPUT);
     pinMode(VENpin, OUTPUT);
@@ -62,6 +62,7 @@ bool PN7160Interface::hasMessage() {
 }
 
 uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBufferLevel) {
+#ifndef generic
     Wire.beginTransmission(I2Caddress);
     uint32_t nmbrBytesWritten{0};
     nmbrBytesWritten = Wire.write(txBuffer, txBufferLevel);
@@ -69,31 +70,33 @@ uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBuffer
         uint8_t resultCode;
         resultCode = Wire.endTransmission();
         return resultCode;
-    } else {
-        return i2cError;
     }
+#endif
+    return i2cError;
 }
 
 uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
-    uint32_t bytesReceived;
+    uint32_t bytesReceived{0};
+#ifndef generic
     if (hasMessage()) {
         // using 'Split mode' I2C read. See UM10936 section 3.5
         bytesReceived = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
 
-        rxBuffer[0]           = Wire.read();
-        rxBuffer[1]           = Wire.read();
-        rxBuffer[2]           = Wire.read();
+        rxBuffer[0]           = static_cast<uint8_t>(Wire.read());
+        rxBuffer[1]           = static_cast<uint8_t>(Wire.read());
+        rxBuffer[2]           = static_cast<uint8_t>(Wire.read());
         uint8_t payloadLength = rxBuffer[2];
         if (payloadLength > 0) {
             bytesReceived += Wire.requestFrom(I2Caddress, payloadLength);        // then reading the payload, if any
             uint32_t index = 3;
             while (index < bytesReceived) {
-                rxBuffer[index] = Wire.read();
+                rxBuffer[index] = static_cast<uint8_t>(Wire.read());
                 index++;
             }
         }
     } else {
         bytesReceived = 0;
     }
+#endif
     return bytesReceived;
 }

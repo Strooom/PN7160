@@ -21,18 +21,20 @@
 //   * write() : Write message to PN7160 over I2C
 //   * hasMessage() : Check if PN7160 has message waiting for MCU
 
-#include <stdint.h>                                  // Gives us access to uint8_t types etc.
+#include <stdint.h>        // Gives us access to uint8_t types etc.
 
 class PN7160Interface {
   public:
     static void initialize(uint8_t IRQpin, uint8_t VENpin, uint8_t I2Caddress = 0x28);
     static void reset();
     static bool wakeUp();
-    static uint8_t write(const uint8_t data[], const uint32_t dataLength) ;
-    static uint32_t read(uint8_t data[]) ;
-    static bool hasMessage() ;
+    static uint8_t write(const uint8_t data[], const uint32_t dataLength);
+    static uint32_t read(uint8_t data[]);
+    static bool hasMessage();
 
+#ifndef unitTesting
   private:
+#endif
     static uint8_t IRQpin;
     static uint8_t VENpin;
     static uint8_t I2Caddress;

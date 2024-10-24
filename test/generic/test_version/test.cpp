@@ -40,9 +40,15 @@ void test_toString() {
     TEST_ASSERT_EQUAL_STRING("ci", toString(buildEnvironment::ci));
 }
 
+void test_dummy() {
+    version::dump();
+    TEST_IGNORE_MESSAGE("For Coverage Only");
+}
+
 int main(int argc, char** argv) {
     UNITY_BEGIN();
     RUN_TEST(test_initialize);
     RUN_TEST(test_toString);
+    RUN_TEST(test_dummy);
     UNITY_END();
 }
