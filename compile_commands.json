@@ -1,0 +1,428 @@
+[
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\AudioStream.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\AudioStream.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\AudioStream.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\AudioStream.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\CrashReport.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\CrashReport.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\CrashReport.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\CrashReport.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\DMAChannel.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\DMAChannel.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\DMAChannel.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\DMAChannel.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\EventResponder.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\EventResponder.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\EventResponder.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\EventResponder.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial1.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial1.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial1.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial1.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial2.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial2.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial2.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial2.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial3.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial3.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial3.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial3.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial4.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial4.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial4.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial4.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial5.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial5.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial5.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial5.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\HardwareSerial6.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial6.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\HardwareSerial6.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\HardwareSerial6.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\IPAddress.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\IPAddress.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\IPAddress.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\IPAddress.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\IntervalTimer.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\IntervalTimer.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\IntervalTimer.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\IntervalTimer.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\Print.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Print.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Print.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\Print.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\Stream.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Stream.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Stream.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\Stream.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\Time.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Time.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Time.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\Time.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\Tone.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Tone.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\Tone.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\Tone.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\WMath.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\WMath.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\WMath.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\WMath.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\WString.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\WString.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\WString.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\WString.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\analog.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\analog.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\analog.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\analog.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\avr_emulation.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\avr_emulation.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\avr_emulation.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\avr_emulation.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\eeprom.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\eeprom.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\eeprom.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\eeprom.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\keylayouts.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\keylayouts.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\keylayouts.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\keylayouts.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\main.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\main.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\main.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\main.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\math_helper.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\math_helper.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\math_helper.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\math_helper.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -mthumb -mcpu=cortex-m4 -mno-unaligned-access -x assembler-with-cpp -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 -c -o .pio\\build\\production\\FrameworkArduino\\memcpy-armv7m.S.o C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\memcpy-armv7m.S",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\memcpy-armv7m.S",
+        "output": ".pio\\build\\production\\FrameworkArduino\\memcpy-armv7m.S.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -mthumb -mcpu=cortex-m4 -mno-unaligned-access -x assembler-with-cpp -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 -c -o .pio\\build\\production\\FrameworkArduino\\memset.S.o C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\memset.S",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\memset.S",
+        "output": ".pio\\build\\production\\FrameworkArduino\\memset.S.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\mk20dx128.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\mk20dx128.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\mk20dx128.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\mk20dx128.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\new.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\new.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\new.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\new.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\nonstd.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\nonstd.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\nonstd.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\nonstd.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\pins_teensy.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\pins_teensy.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\pins_teensy.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\pins_teensy.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\ser_print.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\ser_print.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\ser_print.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\ser_print.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial1.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial1.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial1.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial1.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial2.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial2.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial2.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial2.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial3.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial3.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial3.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial3.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial4.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial4.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial4.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial4.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial5.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial5.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial5.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial5.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial6.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial6.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial6.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial6.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\serial6_lpuart.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial6_lpuart.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serial6_lpuart.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serial6_lpuart.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent1.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent1.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent1.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent1.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent2.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent2.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent2.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent2.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent3.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent3.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent3.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent3.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent4.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent4.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent4.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent4.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent5.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent5.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent5.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent5.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEvent6.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent6.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEvent6.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEvent6.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEventUSB1.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEventUSB1.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEventUSB1.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEventUSB1.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\serialEventUSB2.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEventUSB2.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\serialEventUSB2.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\serialEventUSB2.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\touch.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\touch.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\touch.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\touch.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\usb_audio.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_audio.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_audio.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_audio.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_desc.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_desc.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_desc.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_desc.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_dev.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_dev.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_dev.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_dev.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\usb_flightsim.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_flightsim.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_flightsim.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_flightsim.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\usb_inst.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_inst.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_inst.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_inst.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_joystick.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_joystick.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_joystick.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_joystick.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_keyboard.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_keyboard.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_keyboard.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_keyboard.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_mem.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mem.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mem.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_mem.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_midi.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_midi.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_midi.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_midi.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_mouse.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mouse.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mouse.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_mouse.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_mtp.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mtp.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_mtp.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_mtp.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_rawhid.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_rawhid.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_rawhid.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_rawhid.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_seremu.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_seremu.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_seremu.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_seremu.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_serial.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_serial.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_serial2.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial2.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial2.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_serial2.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_serial3.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial3.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_serial3.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_serial3.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-gcc.exe -o .pio\\build\\production\\FrameworkArduino\\usb_touch.c.o -c -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_touch.c",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\usb_touch.c",
+        "output": ".pio\\build\\production\\FrameworkArduino\\usb_touch.c.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\FrameworkArduino\\yield.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\yield.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3\\yield.cpp",
+        "output": ".pio\\build\\production\\FrameworkArduino\\yield.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\lib28b\\i2c_t3\\i2c_t3.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\libraries\\i2c_t3 -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\libraries\\i2c_t3\\i2c_t3.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "C:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\libraries\\i2c_t3\\i2c_t3.cpp",
+        "output": ".pio\\build\\production\\lib28b\\i2c_t3\\i2c_t3.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\lib9a9\\logging\\logging.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -Ilib\\logging -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 lib\\logging\\logging.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "lib\\logging\\logging.cpp",
+        "output": ".pio\\build\\production\\lib9a9\\logging\\logging.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\lib61b\\pn7160interface\\pn7160interface.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -Ilib\\pn7160interface -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\libraries\\i2c_t3 -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 lib\\pn7160interface\\pn7160interface.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "lib\\pn7160interface\\pn7160interface.cpp",
+        "output": ".pio\\build\\production\\lib61b\\pn7160interface\\pn7160interface.cpp.o"
+    },
+    {
+        "command": "C:\\Users\\pasca\\.platformio\\packages\\toolchain-gccarmnoneeabi@1.50401.190816\\bin\\arm-none-eabi-g++.exe -o .pio\\build\\production\\src\\main.cpp.o -c -fno-exceptions -felide-constructors -fno-rtti -std=gnu++14 -Wno-error=narrowing -fpermissive -Wno-unknown-pragmas -Wall -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m4 -nostdlib -fsingle-precision-constant -O2 -mno-unaligned-access -fsingle-precision-constant -DPLATFORMIO=60116 -D__MK20DX256__ -DARDUINO_TEENSY31 -DUSB_SERIAL -DARDUINO=10805 -DTEENSYDUINO=157 -DCORE_TEENSY -DF_CPU=72000000L -DLAYOUT_US_ENGLISH -Isrc -Ilib\\pn7160interface -Ilib\\logging -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\libraries\\i2c_t3 -IC:\\Users\\pasca\\.platformio\\packages\\framework-arduinoteensy\\cores\\teensy3 src\\main.cpp",
+        "directory": "C:\\Users\\pasca\\Documents\\Projects\\Software\\PN7160",
+        "file": "src\\main.cpp",
+        "output": ".pio\\build\\production\\src\\main.cpp.o"
+    }
+]
