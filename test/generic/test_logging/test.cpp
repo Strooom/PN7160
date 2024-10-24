@@ -63,8 +63,13 @@ void test_toString_source() {
     TEST_ASSERT_EQUAL_STRING("unknown", toString(static_cast<logging::source>(99U)));
 }
 
-void test_dump() {
+void test_dummy() {
+    logging::initialize();
+    logging::setActiveSources(0);
     logging::dump();
+    logging::enable(logging::source::stateChanges);
+    logging::dump();
+
     TEST_IGNORE_MESSAGE("For Coverage Only");
 }
 
@@ -76,6 +81,6 @@ int main(int argc, char **argv) {
     RUN_TEST(test_output_source);
     RUN_TEST(test_toString_destination);
     RUN_TEST(test_toString_source);
-    RUN_TEST(test_dump);
+    RUN_TEST(test_dummy);
     UNITY_END();
 }
