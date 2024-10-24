@@ -2,7 +2,7 @@
 #include <logging.hpp>
 #include <i2c_t3.h>
 #include <pn7160interface.hpp>
-#include <nci.hpp>
+//#include <nci.hpp>
 
 void setup() {
     logging::initialize();
@@ -13,5 +13,5 @@ void setup() {
 }
 
 void loop() {
-    NCI::run();
+//    NCI::run();
 }
