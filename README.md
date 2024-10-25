@@ -7,3 +7,6 @@ Library/Driver for NXP PN7160 NFC device : https://www.nxp.com/products/rfid-nfc
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Strooom_PN7160&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Strooom_PN7160)
 
 All documentation is in the Repository Wiki : https://github.com/Strooom/PN7160/wiki
+
+
+![PN7160](https://github.com/Strooom/PN7160/blob/develop/docs/pn7160.png)
