@@ -3,7 +3,9 @@
 #include <pn7160interface.hpp>
 
 nciState nci::state{nciState::boot};
-tagPresentStatus nci::tagsStatus{tagPresentStatus::unknown};
+tagStatus nci::theTagStatus{tagStatus::noTagPresent};
+tag nci::tagData;
+
 uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 uint32_t nci::rxMessageLength;
 uint8_t nci::txBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
@@ -16,7 +18,7 @@ void nci::moveState(nciState newState) {
 
 void nci::reset() {
     moveState(nciState::boot);
-    tagsStatus = tagPresentStatus::unknown;
+    theTagStatus = tagStatus::noTagPresent;
 }
 
 void nci::run() {
@@ -129,6 +131,8 @@ void nci::run() {
                 switch (getMessageId(rxBuffer)) {
                     case nciMessageId::RF_DISCOVER_RSP:
                         moveState(nciState::waitForDiscoverNotification);
+                        responseTimeoutTimer.start(noTagDiscoverdTimeout);
+
                         break;
 
                     default:
@@ -156,6 +160,8 @@ void nci::run() {
                         unexpectedMessageError();
                         break;
                 }
+            } else if (responseTimeoutTimer.expired()) {
+                theTagStatus = tagStatus::noTagPresent;
             }
             break;
 
@@ -182,7 +188,7 @@ void nci::run() {
                 getMessage();
                 switch (getMessageId(rxBuffer)) {
                     case nciMessageId::RF_DEACTIVATE_NTF:
-                        startDiscover();
+                        moveState(nciState::waitForRfDeactivationNotification);
                         break;
 
                     default:
@@ -191,6 +197,12 @@ void nci::run() {
                 }
             } else if (responseTimeoutTimer.expired()) {
                 timeoutError();
+            }
+            break;
+
+        case nciState::waitForRestartDiscovery:
+            if (responseTimeoutTimer.expired()) {
+                startDiscover();
             }
             break;
 
@@ -215,8 +227,8 @@ nciState nci::getState() {
     return state;
 }
 
-tagPresentStatus nci::getTagPresentStatus() {
-    return tagsStatus;
+tagStatus nci::getTagPresentStatus() {
+    return theTagStatus;
 }
 
 void nci::sendMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[], const uint8_t thePayloadLength) {
@@ -307,4 +319,17 @@ void nci::timeoutError() {
 void nci::unexpectedMessageError() {
     logging::snprintf(logging::source::criticalError, "unexpected NCI message %s\n", toString(getMessageId(rxBuffer)));
     moveState(nciState::error);
+}
+
+void nci::updateTag() {
+    tag receivedTag;
+    static constexpr uint8_t byeOffset{12};        // TODO : not sure this offset is valid for all types of tags..
+    receivedTag.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
+
+    if (receivedTag == tagData) {
+        theTagStatus = tagStatus::oldTagPresent;
+    } else {
+        theTagStatus = tagStatus::newTagPresent;
+        tagData      = receivedTag;
+    }
 }

@@ -10,31 +10,28 @@
 // ###                                                                       ###
 // #############################################################################
 
-#include <stdint.h>        // Gives us access to uint8_t types etc
+#include <stdint.h>
 
-enum class tagPresentStatus : uint8_t {
-    unknown,
+enum class tagStatus : uint8_t {
     noTagPresent,
     newTagPresent,
     oldTagPresent
 };
 
-
 class tag {
   public:
-    tag();
-    uint8_t getUniqueIdLength() const;
-    void clear();
+    const uint8_t getUniqueIdLength() const;
+    const uint8_t* getUniqueId() const;
+    void setUniqueId(const uint8_t length, const uint8_t* data);
+
     bool operator==(const tag& otherTag) const;
-    const uint8_t& operator[](int) const;
     void dump() const;
 
     static constexpr uint8_t maxUniqueIdLength{10U};
-    static constexpr uint8_t defaultIdByte{0};
 
 #ifndef unitTesting
   private:
 #endif
-    uint8_t uniqueIdLength{0};        // Can be 4, 7 or 10 bytes
+    uint8_t uniqueIdLength{0};
     uint8_t uniqueId[maxUniqueIdLength]{0};
 };

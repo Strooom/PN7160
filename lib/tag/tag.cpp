@@ -11,26 +11,30 @@
 #include <tag.hpp>
 #include <logging.hpp>
 
-tag::tag() {
-    clear();
-}
 
-void tag::clear() {
-    uniqueIdLength = 0;
-    for (uint8_t index = 0; index < maxUniqueIdLength; index++) {
-        uniqueId[index] = 0;
-    }
-}
-
-uint8_t tag::getUniqueIdLength() const {
+const uint8_t tag::getUniqueIdLength() const {
     return uniqueIdLength;
 }
 
-const uint8_t& tag::operator[](int index) const {
-    if (index < uniqueIdLength) {
-        return uniqueId[index];
+const uint8_t* tag::getUniqueId() const {
+    return uniqueId;
+}
+
+void tag::setUniqueId(const uint8_t length, const uint8_t* data) {
+    switch (length) {
+        case 4:
+        case 7:
+        case 10:
+            uniqueIdLength = length;
+            break;
+
+        default:
+            uniqueIdLength = 0;
+            break;
     }
-    return defaultIdByte;
+    for (uint8_t index = 0; index < uniqueIdLength; index++) {
+        uniqueId[index] = data[index];
+    }
 }
 
 bool tag::operator==(const tag& otherTag) const {
@@ -52,3 +56,4 @@ void tag::dump() const {
         logging::snprintf("0x%02X ", uniqueId[index]);
     }
 }
+

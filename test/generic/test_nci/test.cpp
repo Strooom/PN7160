@@ -13,16 +13,16 @@ void tearDown(void) {        // after each test
 void test_initialize() {
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
     TEST_ASSERT_EQUAL(nciState::boot, nci::getState());
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::tagsStatus);
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::getTagPresentStatus());
+    TEST_ASSERT_EQUAL(tagStatus::noTagPresent, nci::theTagStatus);
+    TEST_ASSERT_EQUAL(tagStatus::noTagPresent, nci::getTagPresentStatus());
 }
 
 void test_reset() {
     nci::moveState(nciState::waitForConfigResponse);
-    nci::tagsStatus = tagPresentStatus::oldTagPresent;
+    nci::theTagStatus = tagStatus::oldTagPresent;
     nci::reset();
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::tagsStatus);
+    TEST_ASSERT_EQUAL(tagStatus::noTagPresent, nci::theTagStatus);
 }
 
 void test_check_status() {

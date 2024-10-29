@@ -20,57 +20,40 @@ void test_initialize() {
 
 void test_getIdByte() {
     tag testTag;
-    testTag.uniqueIdLength = 4;
-    testTag.uniqueId[0]    = 0x01;
-    testTag.uniqueId[1]    = 0x02;
-    testTag.uniqueId[2]    = 0x03;
-    testTag.uniqueId[3]    = 0x04;
-    TEST_ASSERT_EQUAL_UINT8(0x01, testTag[0]);
-    TEST_ASSERT_EQUAL_UINT8(0x02, testTag[1]);
-    TEST_ASSERT_EQUAL_UINT8(0x03, testTag[2]);
-    TEST_ASSERT_EQUAL_UINT8(0x04, testTag[3]);
+    static constexpr uint8_t testTagLength{4};
+    static constexpr uint8_t testTagData[testTagLength]{0x01, 0x02, 0x03, 0x04};
+    testTag.setUniqueId(testTagLength, testTagData);
 
-    testTag.uniqueId[4]    = 0x05;
-    TEST_ASSERT_EQUAL_UINT8(tag::defaultIdByte, testTag[4]);
+    TEST_ASSERT_EQUAL_UINT8(testTagLength, testTag.getUniqueIdLength());
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(testTagData, testTag.getUniqueId(), testTagLength);
+
+    testTag.setUniqueId(1, testTagData);
+    TEST_ASSERT_EQUAL_UINT8(0, testTag.getUniqueIdLength());
 }
 
-void test_getCompareID() {
+void test_isEqual() {
     tag tag1;
     tag tag2;
     TEST_ASSERT_TRUE(tag1 == tag2);
-
-    tag1.uniqueIdLength = 4;
-    tag1.uniqueId[0] = 0x01;
-    tag1.uniqueId[1] = 0x02;
-    tag1.uniqueId[2] = 0x03;
-    tag1.uniqueId[3] = 0x04;
-
-    tag2.uniqueIdLength = 4;
-    tag2.uniqueId[0] = 0x01;
-    tag2.uniqueId[1] = 0x02;
-    tag2.uniqueId[2] = 0x03;
-    tag2.uniqueId[3] = 0x04;
-
+    static constexpr uint8_t testTagLength{4};
+    static constexpr uint8_t testTagData[testTagLength]{0x01, 0x02, 0x03, 0x04};
+    tag1.setUniqueId(testTagLength, testTagData);
+    tag2.setUniqueId(testTagLength, testTagData);
     TEST_ASSERT_TRUE(tag1 == tag2);
-
-    tag2.uniqueId[3] = 0x05;
+    tag2.setUniqueId(1, testTagData);
     TEST_ASSERT_FALSE(tag1 == tag2);
-
-    tag2.uniqueId[3] = 0x04;
-    tag2.uniqueIdLength = 7;
+    static constexpr uint8_t testTagData2[testTagLength]{0x01, 0x02, 0x03, 0xFF};
+    tag2.setUniqueId(testTagLength, testTagData2);
     TEST_ASSERT_FALSE(tag1 == tag2);
 }
 
 void test_dummy() {
     tag testTag;
     testTag.dump();
-    testTag.uniqueIdLength = 4;
-    testTag.uniqueId[0]    = 0x01;
-    testTag.uniqueId[1]    = 0x02;
-    testTag.uniqueId[2]    = 0x03;
-    testTag.uniqueId[3]    = 0x04;
+    static constexpr uint8_t testTagLength{4};
+    static constexpr uint8_t testTagData[testTagLength]{0x01, 0x02, 0x03, 0x04};
+    testTag.setUniqueId(testTagLength, testTagData);
     testTag.dump();
-
     TEST_IGNORE_MESSAGE("For Coverage Only");
 }
 
@@ -78,7 +61,7 @@ int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_initialize);
     RUN_TEST(test_getIdByte);
-    RUN_TEST(test_getCompareID);
+    RUN_TEST(test_isEqual);
     RUN_TEST(test_dummy);
     UNITY_END();
 }

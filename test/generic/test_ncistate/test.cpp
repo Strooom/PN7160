@@ -22,6 +22,7 @@ void test_dummy() {
     TEST_ASSERT_EQUAL_STRING("waitForDiscoverNotification", toString(nciState::waitForDiscoverNotification));
     TEST_ASSERT_EQUAL_STRING("waitForRfDeactivationResponse", toString(nciState::waitForRfDeactivationResponse));
     TEST_ASSERT_EQUAL_STRING("waitForRfDeactivationNotification", toString(nciState::waitForRfDeactivationNotification));
+    TEST_ASSERT_EQUAL_STRING("waitForRestartDiscovery", toString(nciState::waitForRestartDiscovery));
     TEST_ASSERT_EQUAL_STRING("error", toString(nciState::error));
     TEST_ASSERT_EQUAL_STRING("unknown nciState", toString(static_cast<nciState>(0xFF)));
 }
