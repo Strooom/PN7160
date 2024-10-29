@@ -1,8 +1,9 @@
 #include <intervaltimer.hpp>
 #ifndef generic
 #include <Arduino.h>
+#else
+unsigned long intervalTimer::mockMillis{0};
 #endif
-
 
 void intervalTimer::set(unsigned long interval) {
     intervalDuration = interval;
@@ -71,7 +72,7 @@ void intervalTimer::stop() {
     timerIsRunning = false;
 }
 
-bool intervalTimer::isRunning() const{
+bool intervalTimer::isRunning() const {
     return timerIsRunning;
 }
 

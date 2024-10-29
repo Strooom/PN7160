@@ -19,6 +19,6 @@ class intervalTimer {
     unsigned long intervalStartTime{0};
     unsigned long intervalDuration;
 #ifdef generic
-    unsigned long mockMillis{0};        // mock millis() function for unit testing
+    static unsigned long mockMillis;        // mock millis() function for unit testing
 #endif
 };
