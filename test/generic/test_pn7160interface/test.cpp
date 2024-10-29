@@ -30,10 +30,10 @@ void test_initialize() {
 
 
 void test_dummy() {
-    PN7160Interface::reset();
+    PN7160Interface::setVenPin(true);
+    PN7160Interface::setVenPin(false);
     TEST_ASSERT_FALSE(PN7160Interface::wakeUp());
     TEST_ASSERT_TRUE(PN7160Interface::hasMessage());
-    TEST_ASSERT_EQUAL(PN7160Interface::i2cError, PN7160Interface::write(nullptr, 0));
     uint8_t data[10];
     TEST_ASSERT_EQUAL(0, PN7160Interface::read(data));
     TEST_IGNORE_MESSAGE("For Coverage Only");

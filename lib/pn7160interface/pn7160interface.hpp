@@ -26,7 +26,7 @@
 class PN7160Interface {
   public:
     static void initialize(uint8_t IRQpin, uint8_t VENpin, uint8_t I2Caddress = 0x28);
-    static void reset();
+    static void setVenPin(bool highOrLow);
     static bool wakeUp();
     static uint8_t write(const uint8_t data[], const uint32_t dataLength);
     static uint32_t read(uint8_t data[]);
@@ -39,5 +39,6 @@ class PN7160Interface {
     static uint8_t VENpin;
     static uint8_t I2Caddress;
     static constexpr uint8_t i2cError{4U};
-    static constexpr uint8_t i2cRetries{3U};
+    static constexpr uint8_t i2cRetries{2U};
+    static constexpr uint8_t i2cRetryTimout{2U};
 };

@@ -19,7 +19,7 @@ void test_initialize() {
     TEST_ASSERT_EQUAL(0, testTag.detectionTimestamp);
 }
 
-void test_getID() {
+void test_getIdByte() {
     tag testTag;
     testTag.uniqueIdLength = 4;
     testTag.uniqueId[0]    = 0x01;
@@ -30,6 +30,9 @@ void test_getID() {
     TEST_ASSERT_EQUAL_UINT8(0x02, testTag[1]);
     TEST_ASSERT_EQUAL_UINT8(0x03, testTag[2]);
     TEST_ASSERT_EQUAL_UINT8(0x04, testTag[3]);
+
+    testTag.uniqueId[4]    = 0x05;
+    TEST_ASSERT_EQUAL_UINT8(tag::defaultIdByte, testTag[4]);
 }
 
 void test_getCompareID() {
@@ -75,7 +78,7 @@ void test_dummy() {
 int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_initialize);
-    RUN_TEST(test_getID);
+    RUN_TEST(test_getIdByte);
     RUN_TEST(test_getCompareID);
     RUN_TEST(test_dummy);
     UNITY_END();

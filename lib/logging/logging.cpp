@@ -37,12 +37,12 @@ uint32_t logging::snprintf(const char *format, ...) {
 uint32_t logging::snprintf(source aSource, const char *format, ...) {
     uint32_t length{0};
     if ((activeDestinations != 0) && (isActive(aSource))) {
-            va_list argList;
-            va_start(argList, format);
-            length = vsnprintf(buffer, bufferLength, format, argList);
-            va_end(argList);
-            write(length);
-        }
+        va_list argList;
+        va_start(argList, format);
+        length = vsnprintf(buffer, bufferLength, format, argList);
+        va_end(argList);
+        write(length);
+    }
     return length;
 }
 
@@ -79,6 +79,10 @@ const char *toString(logging::source aSource) {
     switch (aSource) {
         case logging::source::stateChanges:
             return "stateChanges";
+        case logging::source::nciMessages:
+            return "nciMessages";
+        case logging::source::tagEvents:
+            return "tagEvents";
         case logging::source::error:
             return "error";
         case logging::source::criticalError:

@@ -1,4 +1,3 @@
-#define unitTest
 #include <cstring>
 #include <unity.h>
 #include "version.hpp"

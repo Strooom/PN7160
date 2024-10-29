@@ -17,6 +17,8 @@ class logging {
     };
     enum class source : uint32_t {        // We can send logging from the following sources, when they are enabled :
         stateChanges  = 0,
+        nciMessages   = 1,
+        tagEvents     = 2,
         error         = 30,
         criticalError = 31
     };

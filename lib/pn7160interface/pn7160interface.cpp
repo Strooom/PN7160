@@ -31,12 +31,10 @@ void PN7160Interface::initialize(uint8_t theIRQpin, uint8_t theVENpin, uint8_t t
 #endif
 }
 
-void PN7160Interface::reset() {
+void PN7160Interface::setVenPin(bool highOrLow) {
 #ifndef generic
-    digitalWrite(VENpin, LOW);        // PN7160 Reset procedure : see PN7160 datasheet 11.5.1 - Fig 20
-    delay(3);
-    digitalWrite(VENpin, HIGH);
-    delay(3);
+    uint8_t pinState = highOrLow ? HIGH : LOW;
+    digitalWrite(VENpin, pinState);
 #endif
 }
 
@@ -47,7 +45,7 @@ bool PN7160Interface::wakeUp() {
         if (Wire.endTransmission() == 0) {
             return true;
         }
-        delay(3U);
+        delay(i2cRetryTimout);
 #endif
     }
     return false;
@@ -62,17 +60,18 @@ bool PN7160Interface::hasMessage() {
 }
 
 uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBufferLevel) {
+    uint8_t resultCode{0};
+    uint32_t nmbrBytesWritten{0};
 #ifndef generic
     Wire.beginTransmission(I2Caddress);
-    uint32_t nmbrBytesWritten{0};
     nmbrBytesWritten = Wire.write(txBuffer, txBufferLevel);
     if (nmbrBytesWritten == txBufferLevel) {
-        uint8_t resultCode;
         resultCode = Wire.endTransmission();
         return resultCode;
     }
+    resultCode = Wire.endTransmission();
 #endif
-    return i2cError;
+    return resultCode;
 }
 
 uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
