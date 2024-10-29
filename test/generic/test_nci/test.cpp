@@ -41,6 +41,73 @@ void test_state_machine() {
     TEST_ASSERT_EQUAL(nciState::waitForCoreResetResponse, nci::getState());
 }
 
+void test_state_machine_timeouts() {
+    PN7160Interface::mockIrqPin = false;
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForCoreResetResponse;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForCoreResetResponse, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForCoreResetNotification;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForCoreResetNotification, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitforCoreInitResponse;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitforCoreInitResponse, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForConfigResponse;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForConfigResponse, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForDiscoverResponse;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForRfDeactivationResponse;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForRfDeactivationResponse, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+
+    singleTimer::mockMillis = 0;
+    nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
+    nci::state = nciState::waitForRfDeactivationNotification;
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::waitForRfDeactivationNotification, nci::getState());
+    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    nci::run();
+    TEST_ASSERT_EQUAL(nciState::error, nci::getState());
+}
+
 void test_dummy() {
     nci::moveState(nciState::boot);
     nci::getMessage();
@@ -51,6 +118,8 @@ void test_dummy() {
     nci::getMessageId(nci::rxBuffer);
     nci::timeoutError();
     nci::unexpectedMessageError();
+    nci::startDiscover();
+    nci::configure();
 }
 
 int main(int argc, char **argv) {
@@ -59,6 +128,7 @@ int main(int argc, char **argv) {
     RUN_TEST(test_reset);
     RUN_TEST(test_check_status);
     RUN_TEST(test_state_machine);
+    RUN_TEST(test_state_machine_timeouts);
     RUN_TEST(test_dummy);
     UNITY_END();
 }

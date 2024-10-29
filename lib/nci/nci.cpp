@@ -143,9 +143,7 @@ void nci::run() {
 
         case nciState::waitForDiscoverNotification:
             if (PN7160Interface::hasMessage()) {
-                logging::snprintf("\n\n---------------\n\n");
                 getMessage();
-                logging::snprintf("\n---------------\n\n");
                 switch (getMessageId(rxBuffer)) {
                     case nciMessageId::RF_INTF_ACTIVATED_NTF: {
                         static constexpr uint32_t payloadLength{1};
@@ -282,54 +280,6 @@ void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
     }
     logging::snprintf("\n");
 }
-
-// void nci::decodeMessage(const uint8_t msgBuffer[], const uint8_t length, const bool fullDecode) {
-//     uint8_t byteIndex{0};
-//     // logging::snprintf("%d..%d : %s - %s - %s[%02x]\n", byteIndex, byteIndex + 2, toString(theMessageType), toString(groupID), toString(opCode), opCode);
-//     byteIndex += 3;
-
-//     if (fullDecode) {
-//         if (isMessage(messageType::Response, groupIdentifier::Core, opcodeIdentifier::CORE_RESET_RSP)) {
-//             logging::snprintf("%d : status = %s\n", byteIndex, toString(static_cast<nciStatus>(msgBuffer[byteIndex])));
-//             return;
-//         }
-//         if (isMessage(messageType::Notification, groupIdentifier::Core, opcodeIdentifier::CORE_RESET_NTF)) {
-//             logging::snprintf("%d : reset trigger = %s\n", byteIndex, toString(static_cast<resetTrigger>(msgBuffer[byteIndex])));
-//             byteIndex++;
-//             logging::snprintf("%d : config status = TBA\n", byteIndex);
-//             byteIndex++;
-//             logging::snprintf("%d : NCI version = 0x%02X\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : manufacturer ID = 0x%02X\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : manufacturer specific information length = %d\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : hardwareVersion = %d\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : ROM code version = %d\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : Flash Major Version = %d\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-//             logging::snprintf("%d : Flash Minor Version = %d\n", byteIndex, msgBuffer[byteIndex]);
-//             byteIndex++;
-
-//             return;
-//         }
-//         if (isMessage(messageType::Response, groupIdentifier::Core, opcodeIdentifier::CORE_INIT_RSP)) {
-//             logging::snprintf("%d : status = %s\n", byteIndex, toString(static_cast<nciStatus>(msgBuffer[byteIndex])));
-//             byteIndex++;
-//             logging::snprintf("%d..%d : NFCC features = 0x%02X 0x%02X 0x%02X 0x%02X\n", byteIndex, byteIndex + 3, msgBuffer[byteIndex], msgBuffer[byteIndex + 1], msgBuffer[byteIndex + 2], msgBuffer[byteIndex + 3]);
-//             byteIndex += 4;
-//             // More fields to decode if you need them = I don't
-//             return;
-//         }
-//         if (isMessage(messageType::Response, groupIdentifier::RfManagement, opcodeIdentifier::RF_DISCOVER_RSP)) {
-//             logging::snprintf("%d : status = %s\n", byteIndex, toString(static_cast<nciStatus>(msgBuffer[byteIndex])));
-//             byteIndex++;
-//             return;
-//         }
-//     }
-// }
 
 void nci::startDiscover() {
     static constexpr uint32_t payloadLength{7};

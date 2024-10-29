@@ -33,4 +33,7 @@ class PN7160Interface {
     static constexpr uint8_t i2cError{4U};
     static constexpr uint8_t i2cRetries{2U};
     static constexpr uint8_t i2cRetryTimout{2U};
+#ifdef generic
+    static bool mockIrqPin;
+#endif
 };

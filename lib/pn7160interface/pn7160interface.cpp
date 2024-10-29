@@ -13,6 +13,8 @@
 #ifndef generic
 #include <Arduino.h>
 #include <i2c_t3.h>
+#else
+bool PN7160Interface::mockIrqPin{false};
 #endif
 
 uint8_t PN7160Interface::IRQpin{};
@@ -55,7 +57,7 @@ bool PN7160Interface::hasMessage() {
 #ifndef generic
     return (HIGH == digitalRead(IRQpin));
 #else
-    return true;
+    return mockIrqPin;
 #endif
 }
 
@@ -78,7 +80,7 @@ uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
     uint32_t bytesReceived{0};
 #ifndef generic
     if (hasMessage()) {
-        bytesReceived = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
+        bytesReceived         = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
         rxBuffer[0]           = static_cast<uint8_t>(Wire.read());
         rxBuffer[1]           = static_cast<uint8_t>(Wire.read());
         rxBuffer[2]           = static_cast<uint8_t>(Wire.read());
