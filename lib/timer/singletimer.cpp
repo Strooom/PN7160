@@ -72,7 +72,7 @@ void singleTimer::stop() {
     timerIsRunning = false;
 }
 
-bool singleTimer::isRunning() {
+bool singleTimer::isRunning() const{
     return timerIsRunning;
 }
 

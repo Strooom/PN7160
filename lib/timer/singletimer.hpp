@@ -7,7 +7,7 @@ class singleTimer {
     bool expired();                             // check if timer has expired, if so stops it
     bool expiredAndContinue() const;            // check if timer has expired but does not stop it..
     void stop();                                // disable before expiring
-    bool isRunning();                           // is the timer running or stopped
+    bool isRunning() const;                           // is the timer running or stopped
     unsigned long value() const;                // time from start to now, in milliseconds
     unsigned long duration() const;             // get timer duration, in milliseconds
 

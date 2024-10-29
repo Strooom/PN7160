@@ -55,7 +55,6 @@ enum class opcodeIdentifier : uint8_t {
 
     // PN7160 Proprietary
     RF_TXLDO_ERROR_NTF = 0x23
-
 };
 
 // To simplify the code with some switch() statements, I combine the 3 message elements into a single one
@@ -82,51 +81,6 @@ enum class nciMessageId : uint16_t {
 
 const char* toString(nciMessageId messageId);
 
-// RF_DISCOVER_MAP_CMD = 0x00,
-// RF_DISCOVER_MAP_RSP = 0x00,
-
-// RF_SET_LISTEN_MODE_ROUTING_CMD = 0x01
-
-// #define RF_SET_LISTEN_MODE_ROUTING_CMD 0x01
-// #define RF_SET_LISTEN_MODE_ROUTING_RSP 0x01
-
-// #define RF_GET_LISTEN_MODE_ROUTING_CMD 0x02
-// #define RF_GET_LISTEN_MODE_ROUTING_RSP 0x02
-// #define RF_GET_LISTEN_MODE_ROUTING_NTF 0x02
-
-// #define RF_DISCOVER_CMD 0x03
-// #define RF_DISCOVER_RSP 0x03
-// #define RF_DISCOVER_NTF 0x03
-
-// #define RF_DISCOVER_SELECT_CMD 0x04
-// #define RF_DISCOVER_SELECT_RSP 0x04
-
-// #define RF_INTF_ACTIVATED_NTF 0x05
-
-// #define RF_DEACTIVATE_CMD 0x06
-// #define RF_DEACTIVATE_RSP 0x06
-// #define RF_DEACTIVATE_NTF 0x06
-
-// #define RF_FIELD_INFO_NTF 0x07
-
-// #define RF_T3T_POLLING_CMD 0x08
-// #define RF_T3T_POLLING_RSP 0x08
-// #define RF_T3T_POLLING_NTF 0x08
-// #define RF_NFCEE_ACTION_NTF 0x09
-// #define RF_NFCEE_DISCOVERY_REQ_NTF 0x0A
-// #define RF_PARAMETER_UPDATE_CMD 0x0B
-// #define RF_PARAMETER_UPDATE_RSP 0x0B
-// // 1100b -  1111b RFU
-
-// #define NFCEE_DISCOVER_CMD 0x00
-// #define NFCEE_DISCOVER_RSP 0x00
-// #define NFCEE_DISCOVER_NTF 0x00
-// #define NFCEE_MODE_SET_CMD 0x01
-// #define NFCEE_MODE_SET_RSP 0x01
-// // 0010b - 1111b RFU
-
-// #define NCI_PROPRIETARY_ACT_CMD 0x02        // See PN7150 Datasheet, section 5.4
-// #define NCI_PROPRIETARY_ACT_RSP 0x02        // See PN7150 Datasheet, section 5.4, Table 23 and 24
 
 
 enum class nciStatus : uint8_t{

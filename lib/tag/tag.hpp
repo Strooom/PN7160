@@ -12,6 +12,14 @@
 
 #include <stdint.h>        // Gives us access to uint8_t types etc
 
+enum class tagPresentStatus : uint8_t {
+    unknown,
+    noTagPresent,
+    newTagPresent,
+    oldTagPresent
+};
+
+
 class tag {
   public:
     tag();
@@ -29,5 +37,4 @@ class tag {
 #endif
     uint8_t uniqueIdLength{0};        // Can be 4, 7 or 10 bytes
     uint8_t uniqueId[maxUniqueIdLength]{0};
-    unsigned long detectionTimestamp{0};        // TODO : Do we need this ?
 };

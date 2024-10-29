@@ -4,9 +4,6 @@
 #endif
 
 
-intervalTimer::intervalTimer() : timerIsRunning{false} {
-}
-
 void intervalTimer::set(unsigned long interval) {
     intervalDuration = interval;
 }
@@ -74,7 +71,7 @@ void intervalTimer::stop() {
     timerIsRunning = false;
 }
 
-bool intervalTimer::isRunning() {
+bool intervalTimer::isRunning() const{
     return timerIsRunning;
 }
 

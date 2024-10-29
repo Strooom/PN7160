@@ -16,7 +16,6 @@ void test_initialize() {
     TEST_ASSERT_EQUAL(0, testTag.getUniqueIdLength());
     uint8_t allZeroes[tag::maxUniqueIdLength]{};
     TEST_ASSERT_EQUAL_UINT8_ARRAY(allZeroes, testTag.uniqueId, tag::maxUniqueIdLength);
-    TEST_ASSERT_EQUAL(0, testTag.detectionTimestamp);
 }
 
 void test_getIdByte() {

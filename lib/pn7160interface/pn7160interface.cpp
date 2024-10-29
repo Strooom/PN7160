@@ -65,22 +65,20 @@ uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBuffer
 #ifndef generic
     Wire.beginTransmission(I2Caddress);
     nmbrBytesWritten = Wire.write(txBuffer, txBufferLevel);
-    if (nmbrBytesWritten == txBufferLevel) {
-        resultCode = Wire.endTransmission();
-        return resultCode;
-    }
-    resultCode = Wire.endTransmission();
+    resultCode       = Wire.endTransmission();
 #endif
-    return resultCode;
+    if ((nmbrBytesWritten != txBufferLevel) || (resultCode != 0)) {
+        return i2cError;
+    } else {
+        return 0;
+    }
 }
 
 uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
     uint32_t bytesReceived{0};
 #ifndef generic
     if (hasMessage()) {
-        // using 'Split mode' I2C read. See UM10936 section 3.5
         bytesReceived = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
-
         rxBuffer[0]           = static_cast<uint8_t>(Wire.read());
         rxBuffer[1]           = static_cast<uint8_t>(Wire.read());
         rxBuffer[2]           = static_cast<uint8_t>(Wire.read());

@@ -39,7 +39,7 @@ void nci::run() {
         case nciState::waitForResetDone:
             if (responseTimeoutTimer.expired()) {
                 static constexpr uint32_t payloadLength{1};
-                uint8_t payloadData[payloadLength] = {ResetKeepConfig};
+                uint8_t payloadData[payloadLength] = {resetKeepConfig};
                 sendMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_RESET_CMD, payloadData, payloadLength);
                 responseTimeoutTimer.start(standardResponseTimeout);
                 moveState(nciState::waitForCoreResetResponse);
@@ -276,8 +276,8 @@ bool nci::checkMessageStatus(const uint8_t receivedStatus) {
     return (receivedStatus == static_cast<uint8_t>(nciStatus::ok));
 }
 
-void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint8_t length) {
-    for (uint8_t index = 0; index < length; index++) {
+void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
+    for (uint32_t index = 0; index < length; index++) {
         logging::snprintf("%02X ", msgBuffer[index]);
     }
     logging::snprintf("\n");
