@@ -2,7 +2,6 @@
 #include <logging.hpp>
 #include <pn7160interface.hpp>
 
-
 nciState nci::state{nciState::boot};
 tagPresentStatus nci::tagsStatus{tagPresentStatus::unknown};
 uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
@@ -266,7 +265,11 @@ opcodeIdentifier nci::getOpcodeIdentifier(const uint8_t msgBuffer[]) {
 }
 
 nciMessageId nci::getMessageId(const uint8_t msgBuffer[]) {
-    uint16_t messageIdValue = ((static_cast<uint16_t>(msgBuffer[0] & 0xE0) | static_cast<uint16_t>(msgBuffer[0] & 0x0F)) << 8U) | static_cast<uint16_t>(msgBuffer[1] & 0x3F);
+    uint16_t messageType    = static_cast<uint16_t>(msgBuffer[0]) & 0x00E0;
+    uint16_t groupId        = static_cast<uint16_t>(msgBuffer[0]) & 0x000F;
+    uint16_t firstBytes     = (messageType | groupId) << 8U;
+    uint16_t opcodeId       = static_cast<uint16_t>(msgBuffer[1]) & 0x003F;
+    uint16_t messageIdValue = firstBytes | opcodeId;
     return static_cast<nciMessageId>(messageIdValue);
 }
 
