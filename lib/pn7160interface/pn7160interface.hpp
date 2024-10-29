@@ -9,24 +9,16 @@
 // ###                                                                       ###
 // #############################################################################
 
-// Summary :
-//   This library implements the hardware interface for the NXP PN7160 NFC device.
 //   The PN7160 uses I2C plus 2 additional data signals : IRQ and VEN
-//     IRQ : output of the PN7160, input for the MCU. Through this signal the PN7160 signals it has data to be read by the MCU
-//     VEN : input of the PN7160, output for the MCU. Through this signal the MCU can RESET the PN7160
-//
-//   The library provides :
-//   * init() : Initialization of the interface
-//   * read() : Read message from PN7160 over I2C
-//   * write() : Write message to PN7160 over I2C
-//   * hasMessage() : Check if PN7160 has message waiting for MCU
+//     IRQ : output of the PN7160, input for the MCU. Through this signal the PN7160 signals it has data to be read by the MCU, active HIGH
+//     VEN : input of the PN7160, output for the MCU. Through this signal the MCU can RESET the PN7160, active LOW
 
 #include <stdint.h>        // Gives us access to uint8_t types etc.
 
 class PN7160Interface {
   public:
     static void initialize(uint8_t IRQpin, uint8_t VENpin, uint8_t I2Caddress = 0x28);
-    static void reset();
+    static void setVenPin(bool highOrLow);
     static bool wakeUp();
     static uint8_t write(const uint8_t data[], const uint32_t dataLength);
     static uint32_t read(uint8_t data[]);
@@ -39,5 +31,9 @@ class PN7160Interface {
     static uint8_t VENpin;
     static uint8_t I2Caddress;
     static constexpr uint8_t i2cError{4U};
-    static constexpr uint8_t i2cRetries{3U};
+    static constexpr uint8_t i2cRetries{2U};
+    static constexpr uint8_t i2cRetryTimout{2U};
+#ifdef generic
+    static bool mockIrqPin;
+#endif
 };

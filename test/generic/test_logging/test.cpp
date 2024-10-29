@@ -58,6 +58,8 @@ void test_toString_destination() {
 
 void test_toString_source() {
     TEST_ASSERT_EQUAL_STRING("stateChanges", toString(logging::source::stateChanges));
+    TEST_ASSERT_EQUAL_STRING("nciMessages", toString(logging::source::nciMessages));
+    TEST_ASSERT_EQUAL_STRING("tagEvents", toString(logging::source::tagEvents));
     TEST_ASSERT_EQUAL_STRING("error", toString(logging::source::error));
     TEST_ASSERT_EQUAL_STRING("criticalError", toString(logging::source::criticalError));
     TEST_ASSERT_EQUAL_STRING("unknown", toString(static_cast<logging::source>(99U)));

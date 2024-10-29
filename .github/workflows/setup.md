@@ -1,4 +1,6 @@
 * set badges on readme
+  - codecov : configuration, badges and graphs
+  - sonarcloud : project overview, then information
 * setup codecov token
 * setup sonarcloud token : set project from auto to github actions / set project and user keys
 * check filetype for bin file .hex .bin .elf

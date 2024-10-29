@@ -9,16 +9,12 @@ enum class messageType : uint8_t {
     Notification = 0x60
 };
 
-const char* toString(messageType theMessageType);
-
 enum class groupIdentifier : uint8_t {
     Core            = 0x00,
     RfManagement    = 0x01,
     NfceeManagement = 0x02,
     Proprietary     = 0x0F
 };
-
-const char* toString(groupIdentifier theGroupIdentifier);
 
 enum class opcodeIdentifier : uint8_t {
     CORE_RESET_CMD = 0x00,
@@ -40,57 +36,87 @@ enum class opcodeIdentifier : uint8_t {
     CORE_CONN_CLOSE_CMD = 0x05,
     CORE_CONN_CLOSE_RSP = 0x05,
 
-    CORE_CONN_CREDITS_NTF = 0x06,
-    CORE_GENERIC_ERROR_NTF = 0x07,
+    CORE_CONN_CREDITS_NTF    = 0x06,
+    CORE_GENERIC_ERROR_NTF   = 0x07,
     CORE_INTERFACE_ERROR_NTF = 0x08,
 
-    RF_DISCOVER_MAP_CMD = 0x00,
-    RF_DISCOVER_MAP_RSP = 0x00,
+    RF_DISCOVER_CMD = 0x03,
+    RF_DISCOVER_RSP = 0x03,
+    RF_DISCOVER_NTF = 0x03,
 
-    RF_SET_LISTEN_MODE_ROUTING_CMD = 0x01
+    RF_DISCOVER_SELECT_CMD = 0x04,
+    RF_DISCOVER_SELECT_RSP = 0x04,
+
+    RF_INTF_ACTIVATED_NTF = 0x05,
+
+    RF_DEACTIVATE_CMD = 0x06,
+    RF_DEACTIVATE_RSP = 0x06,
+    RF_DEACTIVATE_NTF = 0x06,
+
+    // PN7160 Proprietary
+    RF_TXLDO_ERROR_NTF = 0x23
 };
 
-const char* toString(opcodeIdentifier theOpcodeIdentifier);
+// To simplify the code with some switch() statements, I combine the 3 message elements into a single one
+
+enum class nciMessageId : uint16_t {
+    CORE_RESET_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_RESET_CMD),
+    CORE_RESET_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_RESET_RSP),
+    CORE_RESET_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_RESET_NTF),
+
+    CORE_INIT_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_INIT_CMD),
+    CORE_INIT_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_INIT_RSP),
+
+    CORE_SET_CONFIG_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_SET_CONFIG_RSP),
+
+    RF_DISCOVER_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DISCOVER_CMD),
+    RF_DISCOVER_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DISCOVER_RSP),
+    RF_DISCOVER_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DISCOVER_NTF),
+
+    RF_INTF_ACTIVATED_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_INTF_ACTIVATED_NTF),
+    RF_DEACTIVATE_RSP     = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_RSP),
+    RF_DEACTIVATE_NTF     = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_NTF),
+
+};
+
+const char* toString(nciMessageId messageId);
 
 
-// #define RF_SET_LISTEN_MODE_ROUTING_CMD 0x01
-// #define RF_SET_LISTEN_MODE_ROUTING_RSP 0x01
 
-// #define RF_GET_LISTEN_MODE_ROUTING_CMD 0x02
-// #define RF_GET_LISTEN_MODE_ROUTING_RSP 0x02
-// #define RF_GET_LISTEN_MODE_ROUTING_NTF 0x02
+enum class nciStatus : uint8_t{
+    // Generic Status Codes
+    ok               = 0x00,
+    rejected         = 0x01,
+    rfFrameCorrupted = 0x02,
+    failed           = 0x03,
+    notInitialized   = 0x04,
+    syntaxError      = 0x05,
+    semanticError    = 0x06,
+    // 0x07 � 0x08 RFU
+    invalidParam        = 0x09,
+    messageSizeExceeded = 0x0A,
+    // 0x0B - 0x9F RFU
 
-// #define RF_DISCOVER_CMD 0x03
-// #define RF_DISCOVER_RSP 0x03
-// #define RF_DISCOVER_NTF 0x03
+    // RF Discovery Specific Status Codes
+    discoveryAlreadyStarted         = 0xA0,
+    discoveryTargetActivationFailed = 0xA1,
+    discoveryTearDown               = 0xA2,
+    // 0xA3 - 0xAF RFU
 
-// #define RF_DISCOVER_SELECT_CMD 0x04
-// #define RF_DISCOVER_SELECT_RSP 0x04
+    // RF Interface Specific Status Codes
+    rfTransmissionError = 0xB0,
+    rfProtocolError     = 0xB1,
+    rfTimeoutError      = 0xB2,
+    // 0xB3 - 0xBF RFU
 
-// #define RF_INTF_ACTIVATED_NTF 0x05
+    // NFCEE Interface Specific Status Codes
+    nfceeInterfaceActivationFailed = 0xC0,
+    nfceeTransmissionError         = 0xC1,
+    nfceeProtocolError             = 0xC2,
+    nfceeTimeoutError              = 0xC3
+    // 0xC4 - 0xDF RFU
 
-// #define RF_DEACTIVATE_CMD 0x06
-// #define RF_DEACTIVATE_RSP 0x06
-// #define RF_DEACTIVATE_NTF 0x06
+    // Proprietary Status Codes : 0xE0 - 0xFF
+};
 
-// #define RF_FIELD_INFO_NTF 0x07
-
-// #define RF_T3T_POLLING_CMD 0x08
-// #define RF_T3T_POLLING_RSP 0x08
-// #define RF_T3T_POLLING_NTF 0x08
-// #define RF_NFCEE_ACTION_NTF 0x09
-// #define RF_NFCEE_DISCOVERY_REQ_NTF 0x0A
-// #define RF_PARAMETER_UPDATE_CMD 0x0B
-// #define RF_PARAMETER_UPDATE_RSP 0x0B
-// // 1100b -  1111b RFU
-
-// #define NFCEE_DISCOVER_CMD 0x00
-// #define NFCEE_DISCOVER_RSP 0x00
-// #define NFCEE_DISCOVER_NTF 0x00
-// #define NFCEE_MODE_SET_CMD 0x01
-// #define NFCEE_MODE_SET_RSP 0x01
-// // 0010b - 1111b RFU
-
-// #define NCI_PROPRIETARY_ACT_CMD 0x02        // See PN7150 Datasheet, section 5.4
-// #define NCI_PROPRIETARY_ACT_RSP 0x02        // See PN7150 Datasheet, section 5.4, Table 23 and 24
-
+const char* toString(nciStatus theStatus);
