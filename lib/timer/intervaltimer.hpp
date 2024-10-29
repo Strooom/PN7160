@@ -2,7 +2,6 @@
 
 class intervalTimer {
   public:
-    explicit intervalTimer();
     void start();
     void startOrContinue();                // start the intervalTimer if not yet running, do nothing if it already runs
     void start(unsigned long);             // set a new interval time and start the intervaltimer
