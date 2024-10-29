@@ -1,3 +1,7 @@
 {
-    "sonarlint.pathToCompileCommands": "${workspaceFolder}\\compile_commands.json"
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}\\compile_commands.json",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "strooom-1",
+        "projectKey": "Strooom_PN7160"
+    }
 }

@@ -267,9 +267,9 @@ opcodeIdentifier nci::getOpcodeIdentifier(const uint8_t msgBuffer[]) {
 nciMessageId nci::getMessageId(const uint8_t msgBuffer[]) {
     uint16_t messageType    = static_cast<uint16_t>(msgBuffer[0]) & 0x00E0;
     uint16_t groupId        = static_cast<uint16_t>(msgBuffer[0]) & 0x000F;
-    uint16_t firstBytes     = (messageType | groupId) << 8U;
+    uint16_t firstBytes     = static_cast<uint16_t>((messageType | groupId) << 8U);
     uint16_t opcodeId       = static_cast<uint16_t>(msgBuffer[1]) & 0x003F;
-    uint16_t messageIdValue = firstBytes | opcodeId;
+    uint16_t messageIdValue = static_cast<uint16_t>(firstBytes | opcodeId);
     return static_cast<nciMessageId>(messageIdValue);
 }
 
