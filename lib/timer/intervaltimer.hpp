@@ -8,7 +8,7 @@ class intervalTimer {
     void set(unsigned long);               // set a new interval time
     bool expired();                        // check if intervalTimer has expired
     void stop();                           // disable before expiring
-    bool isRunning() const;                      // is the timer running or stopped
+    bool isRunning() const;                // is the timer running or stopped
     unsigned long value() const;           // time passed in current interval, in milliseconds
     unsigned long interval() const;        // current interval, in milliseconds
 
