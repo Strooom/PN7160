@@ -13,16 +13,16 @@ void tearDown(void) {        // after each test
 void test_initialize() {
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
     TEST_ASSERT_EQUAL(nciState::boot, nci::getState());
-    TEST_ASSERT_EQUAL(tagStatus::noTag, nci::theTagStatus);
-    TEST_ASSERT_EQUAL(tagStatus::noTag, nci::getTagPresentStatus());
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::theTagStatus);
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::getTagStatus());
 }
 
 void test_reset() {
     nci::moveState(nciState::waitForConfigResponse);
-    nci::theTagStatus = tagStatus::oldTag;
+    nci::theTagStatus = tagStatus::old;
     nci::reset();
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
-    TEST_ASSERT_EQUAL(tagStatus::noTag, nci::theTagStatus);
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::theTagStatus);
 }
 
 void test_check_status() {
@@ -118,7 +118,8 @@ void test_dummy() {
     nci::getMessageId(nci::rxBuffer);
     nci::timeoutError();
     nci::unexpectedMessageError();
-    nci::startDiscover();
+    nci::startDiscover1();
+    nci::startDiscover2();
     nci::configure();
 }
 

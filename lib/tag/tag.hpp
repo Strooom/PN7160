@@ -13,9 +13,9 @@
 #include <stdint.h>
 
 enum class tagStatus : uint8_t {
-    noTag,
-    newTag,
-    oldTag,
+    absent,
+    foundNew,
+    old,
     removed
 };
 

@@ -13,11 +13,11 @@
 
 const char* toString(tagStatus status) {
     switch (status) {
-        case tagStatus::noTag:
+        case tagStatus::absent:
             return "no tag";
-        case tagStatus::newTag:
+        case tagStatus::foundNew:
             return "new tag";
-        case tagStatus::oldTag:
+        case tagStatus::old:
             return "old tag";
         case tagStatus::removed:
             return "tag removed";
@@ -51,10 +51,10 @@ void tag::setUniqueId(const uint8_t length, const uint8_t* data) {
     }
 }
 
-
 void tag::dump() const {
     logging::snprintf("uniqueID[%d] = ", uniqueIdLength);
-    for (uint8_t index = 0; index < maxUniqueIdLength; index++) {
+    for (uint8_t index = 0; index < uniqueIdLength; index++) {
         logging::snprintf("0x%02X ", uniqueId[index]);
     }
+    logging::snprintf("\n");
 }

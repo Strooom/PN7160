@@ -19,13 +19,15 @@
 
 class nci {
   public:
-    static void startDiscover();
+    static void startDiscover1();
+    static void startDiscover2();
 
     static void run();
     static void reset();
 
     static nciState getState();
-    static tagStatus getTagPresentStatus();
+    static tagStatus getTagStatus();
+    static tag tagData;
 
     static bool checkMessageType(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId);
     static messageType getMessageType(const uint8_t msgBuffer[]);
@@ -43,9 +45,9 @@ class nci {
     static void moveState(nciState newState);
 
     static singleShotTimer responseTimeoutTimer;
+    static singleShotTimer noTagFoundTimoutTimer;
 
     static tagStatus theTagStatus;
-    static tag tagData;
 
     static constexpr uint32_t maxPayloadSize{255U};
     static constexpr uint32_t msgHeaderSize{3U};
@@ -60,6 +62,7 @@ class nci {
     static bool checkMessageStatus(const uint8_t receivedStatus);
     static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)());
     static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout);
+    static void waitForTag();
     static void configure();
     static void timeoutError();
     static void unexpectedMessageError();

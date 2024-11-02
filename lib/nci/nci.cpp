@@ -3,13 +3,14 @@
 #include <pn7160interface.hpp>
 
 nciState nci::state{nciState::boot};
-tagStatus nci::theTagStatus{tagStatus::noTag};
+tagStatus nci::theTagStatus{tagStatus::absent};
 tag nci::tagData;
 
 uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 uint32_t nci::rxMessageLength;
 uint8_t nci::txBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 singleShotTimer nci::responseTimeoutTimer;
+singleShotTimer nci::noTagFoundTimoutTimer;
 
 void nci::moveState(nciState newState) {
     logging::snprintf(logging::source::stateChanges, "nci stateChange from %s (%d) to %s (%d)\n", toString(state), state, toString(newState), newState);
@@ -18,7 +19,7 @@ void nci::moveState(nciState newState) {
 
 void nci::reset() {
     moveState(nciState::boot);
-    theTagStatus = tagStatus::noTag;
+    theTagStatus = tagStatus::absent;
 }
 
 void nci::run() {
@@ -52,19 +53,19 @@ void nci::run() {
             break;
 
         case nciState::waitforCoreInitResponse:
-            waitForMessage(nciMessageId::CORE_INIT_RSP, nciState::waitforCoreInitResponse, configure);
+            waitForMessage(nciMessageId::CORE_INIT_RSP, nciState::waitForConfigResponse, configure);
             break;
 
         case nciState::waitForConfigResponse:
-            waitForMessage(nciMessageId::CORE_SET_CONFIG_RSP, nciState::waitforCoreInitResponse, startDiscover);
+            waitForMessage(nciMessageId::CORE_SET_CONFIG_RSP, nciState::waitForDiscoverResponse, startDiscover1);
             break;
 
         case nciState::waitForDiscoverResponse:
-            waitForMessage(nciMessageId::RF_DISCOVER_RSP, nciState::waitForDiscoverNotification, noTagDiscoverdTimeout);
+            waitForMessage(nciMessageId::RF_DISCOVER_RSP, nciState::waitForDiscoverNotification, startDiscover2);
             break;
 
         case nciState::waitForDiscoverNotification:
-            waitForMessage(nciMessageId::RF_INTF_ACTIVATED_NTF, nciState::waitForRfDeactivationResponse, sendDeactivate);
+            waitForTag();
             break;
 
         case nciState::waitForRfDeactivationResponse:
@@ -77,7 +78,8 @@ void nci::run() {
 
         case nciState::waitForRestartDiscovery:
             if (responseTimeoutTimer.isExpired()) {
-                startDiscover();
+                startDiscover1();
+                moveState(nciState::waitForDiscoverResponse);
             }
             break;
 
@@ -94,8 +96,20 @@ nciState nci::getState() {
     return state;
 }
 
-tagStatus nci::getTagPresentStatus() {
-    return theTagStatus;
+tagStatus nci::getTagStatus() {
+    tagStatus result{theTagStatus};
+    switch (theTagStatus) {
+        case tagStatus::foundNew:
+            theTagStatus = tagStatus::old;
+            break;
+        case tagStatus::removed:
+            theTagStatus = tagStatus::absent;
+            break;
+
+        default:
+            break;
+    }
+    return result;
 }
 
 void nci::sendMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[], const uint8_t thePayloadLength) {
@@ -123,8 +137,10 @@ void nci::sendMessage(const messageType theMessageType, const groupIdentifier gr
 void nci::getMessage() {
     PN7160Interface::wakeUp();
     rxMessageLength = PN7160Interface::read(rxBuffer);
-    logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
-    dumpRawMessage(rxBuffer, rxMessageLength);
+    if (logging::isActive(logging::source::nciMessages)) {
+        logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
+        dumpRawMessage(rxBuffer, rxMessageLength);
+    }
 }
 
 bool nci::checkMessageLength(const uint8_t expectedLength) {
@@ -163,12 +179,15 @@ void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
     logging::snprintf("\n");
 }
 
-void nci::startDiscover() {
+void nci::startDiscover1() {
     static constexpr uint32_t payloadLength{7};
     uint8_t payloadData[payloadLength] = {3, 0, 1, 1, 1, 2, 1};
     sendMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DISCOVER_CMD, payloadData, payloadLength);
     responseTimeoutTimer.start(standardResponseTimeout);
-    moveState(nciState::waitForDiscoverResponse);
+}
+
+void nci::startDiscover2() {
+    noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
 }
 
 void nci::configure() {
@@ -190,14 +209,13 @@ void nci::unexpectedMessageError() {
 
 void nci::updateTag() {
     tag receivedTag;
-    static constexpr uint8_t byeOffset{12};        // TODO : not sure this offset is valid for all types of tags..
+    static constexpr uint8_t byeOffset{12};
     receivedTag.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
-
     if (receivedTag == tagData) {
-        theTagStatus = tagStatus::oldTag;
+        theTagStatus = tagStatus::old;
     } else {
-        theTagStatus = tagStatus::newTag;
-        tagData      = receivedTag;
+        theTagStatus = tagStatus::foundNew;
+        tagData.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
     }
 }
 
@@ -253,4 +271,29 @@ void nci::sendDeactivate() {
     uint8_t payloadData[payloadLength] = {0};        // Idle mode
     sendMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DEACTIVATE_CMD, payloadData, payloadLength);
     responseTimeoutTimer.start(standardResponseTimeout);
+}
+
+void nci::waitForTag() {
+    if (PN7160Interface::hasMessage()) {
+        getMessage();
+        if (nciMessageId::RF_INTF_ACTIVATED_NTF == getMessageId(rxBuffer)) {
+            updateTag();
+            sendDeactivate();
+            moveState(nciState::waitForRfDeactivationResponse);
+        } else {
+            unexpectedMessageError();
+            moveState(nciState::error);
+        }
+    } else if (noTagFoundTimoutTimer.isExpired()) {
+        switch (theTagStatus) {
+            case tagStatus::foundNew:
+            case tagStatus::old:
+                theTagStatus = tagStatus::removed;
+                break;
+            default:
+                break;
+        }
+        tagData.setUniqueId(0, nullptr);
+        logging::snprintf(logging::source::tagEvents, "Tag data cleared\n");
+    }
 }
