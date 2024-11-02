@@ -23,7 +23,7 @@ const char* toString(tagStatus status);
 
 class tag {
   public:
-    const uint8_t getUniqueIdLength() const;
+    uint8_t getUniqueIdLength() const;
     const uint8_t* getUniqueId() const;
     void setUniqueId(const uint8_t length, const uint8_t* data);
 

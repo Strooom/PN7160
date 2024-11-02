@@ -26,7 +26,7 @@ const char* toString(tagStatus status) {
     }
 }
 
-const uint8_t tag::getUniqueIdLength() const {
+uint8_t tag::getUniqueIdLength() const {
     return uniqueIdLength;
 }
 
@@ -70,4 +70,3 @@ void tag::dump() const {
         logging::snprintf("0x%02X ", uniqueId[index]);
     }
 }
-
