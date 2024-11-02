@@ -27,7 +27,6 @@ class tag {
     const uint8_t* getUniqueId() const;
     void setUniqueId(const uint8_t length, const uint8_t* data);
 
-    bool operator==(const tag& otherTag) const;
     void dump() const;
 
     static constexpr uint8_t maxUniqueIdLength{10U};
@@ -37,4 +36,16 @@ class tag {
 #endif
     uint8_t uniqueIdLength{0};
     uint8_t uniqueId[maxUniqueIdLength]{0};
+    friend bool operator==(const tag& firstTag, const tag& secondTag) {
+        if (firstTag.uniqueIdLength == secondTag.uniqueIdLength) {
+            for (uint8_t index = 0; index < firstTag.uniqueIdLength; index++) {
+                if (firstTag.uniqueId[index] != secondTag.uniqueId[index]) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 };

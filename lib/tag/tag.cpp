@@ -51,18 +51,6 @@ void tag::setUniqueId(const uint8_t length, const uint8_t* data) {
     }
 }
 
-bool tag::operator==(const tag& otherTag) const {
-    if (uniqueIdLength == otherTag.uniqueIdLength) {
-        for (uint8_t index = 0; index < uniqueIdLength; index++) {
-            if (uniqueId[index] != otherTag.uniqueId[index]) {
-                return false;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
 
 void tag::dump() const {
     logging::snprintf("uniqueID[%d] = ", uniqueIdLength);
