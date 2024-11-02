@@ -201,7 +201,7 @@ void nci::updateTag() {
     }
 }
 
-void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, std::function<void()>doAction) {
+void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*doAction)()) {
     if (PN7160Interface::hasMessage()) {
         getMessage();
         if (expectedMessageId == getMessageId(rxBuffer)) {
