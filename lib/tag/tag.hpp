@@ -13,10 +13,13 @@
 #include <stdint.h>
 
 enum class tagStatus : uint8_t {
-    noTagPresent,
-    newTagPresent,
-    oldTagPresent
+    noTag,
+    newTag,
+    oldTag,
+    removed
 };
+
+const char* toString(tagStatus status);
 
 class tag {
   public:

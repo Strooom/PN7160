@@ -54,6 +54,10 @@ void test_dummy() {
     static constexpr uint8_t testTagData[testTagLength]{0x01, 0x02, 0x03, 0x04};
     testTag.setUniqueId(testTagLength, testTagData);
     testTag.dump();
+    TEST_ASSERT_EQUAL_STRING("no tag", toString(tagStatus::noTag));
+    TEST_ASSERT_EQUAL_STRING("new tag", toString(tagStatus::newTag));
+    TEST_ASSERT_EQUAL_STRING("old tag", toString(tagStatus::oldTag));
+    TEST_ASSERT_EQUAL_STRING("tag removed", toString(tagStatus::removed));
     TEST_IGNORE_MESSAGE("For Coverage Only");
 }
 

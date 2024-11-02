@@ -58,7 +58,9 @@ class nci {
     static void getMessage();
     static bool checkMessageLength(const uint8_t expectedLength);
     static bool checkMessageStatus(const uint8_t receivedStatus);
-
+    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)());
+    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout);
+    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)(), unsigned long timeout);
     static void configure();
     static void timeoutError();
     static void unexpectedMessageError();
@@ -71,4 +73,9 @@ class nci {
     static constexpr unsigned long noTagDiscoverdTimeout{500U};
     static constexpr uint8_t resetKeepConfig{0};
     static constexpr uint8_t resetClearConfig{0x01};
+
+    static void sendCoreReset();
+    static void waitForCoreReset();
+    static void sendCoreInit();
+    static void sendDeactivate();
 };

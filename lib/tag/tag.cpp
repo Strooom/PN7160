@@ -11,6 +11,20 @@
 #include <tag.hpp>
 #include <logging.hpp>
 
+const char* toString(tagStatus status) {
+    switch (status) {
+        case tagStatus::noTag:
+            return "no tag";
+        case tagStatus::newTag:
+            return "new tag";
+        case tagStatus::oldTag:
+            return "old tag";
+        case tagStatus::removed:
+            return "tag removed";
+        default:
+            return "unknown";
+    }
+}
 
 const uint8_t tag::getUniqueIdLength() const {
     return uniqueIdLength;
