@@ -16,6 +16,7 @@
 #include <ncistate.hpp>
 #include <ncipacket.hpp>
 #include <singletimer.hpp>
+#include <functional>
 
 class nci {
   public:
@@ -58,9 +59,8 @@ class nci {
     static void getMessage();
     static bool checkMessageLength(const uint8_t expectedLength);
     static bool checkMessageStatus(const uint8_t receivedStatus);
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)());
+    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, std::function<void()>callOnMatch);
     static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout);
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)(), unsigned long timeout);
     static void configure();
     static void timeoutError();
     static void unexpectedMessageError();
