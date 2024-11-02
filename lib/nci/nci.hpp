@@ -42,7 +42,7 @@ class nci {
     static nciState state;
     static void moveState(nciState newState);
 
-    static singleTimer responseTimeoutTimer;
+    static singleShotTimer responseTimeoutTimer;
 
     static tagStatus theTagStatus;
     static tag tagData;

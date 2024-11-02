@@ -9,7 +9,7 @@ tag nci::tagData;
 uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 uint32_t nci::rxMessageLength;
 uint8_t nci::txBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
-singleTimer nci::responseTimeoutTimer;
+singleShotTimer nci::responseTimeoutTimer;
 
 void nci::moveState(nciState newState) {
     logging::snprintf(logging::source::stateChanges, "nci stateChange from %s (%d) to %s (%d)\n", toString(state), state, toString(newState), newState);
@@ -30,7 +30,7 @@ void nci::run() {
             break;
 
         case nciState::venResetActive:
-            if (responseTimeoutTimer.expired()) {
+            if (responseTimeoutTimer.isExpired()) {
                 PN7160Interface::setVenPin(true);
                 responseTimeoutTimer.start(3U);
                 moveState(nciState::waitForResetDone);
@@ -38,7 +38,7 @@ void nci::run() {
             break;
 
         case nciState::waitForResetDone:
-            if (responseTimeoutTimer.expired()) {
+            if (responseTimeoutTimer.isExpired()) {
                 sendCoreReset();
             }
             break;
@@ -76,7 +76,7 @@ void nci::run() {
             break;
 
         case nciState::waitForRestartDiscovery:
-            if (responseTimeoutTimer.expired()) {
+            if (responseTimeoutTimer.isExpired()) {
                 startDiscover();
             }
             break;
@@ -211,7 +211,7 @@ void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, voi
             unexpectedMessageError();
             moveState(nciState::error);
         }
-    } else if (responseTimeoutTimer.expired()) {
+    } else if (responseTimeoutTimer.isExpired()) {
         timeoutError();
         moveState(nciState::error);
     }
@@ -227,7 +227,7 @@ void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, uns
             unexpectedMessageError();
             moveState(nciState::error);
         }
-    } else if (responseTimeoutTimer.expired()) {
+    } else if (responseTimeoutTimer.isExpired()) {
         timeoutError();
         moveState(nciState::error);
     }
