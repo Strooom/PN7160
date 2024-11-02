@@ -20,7 +20,8 @@ const char* toString(nciMessageId messageId) {
             return "RF_INTF_ACTIVATED_NTF";
         case nciMessageId::RF_DEACTIVATE_RSP:
             return "RF_DEACTIVATE_RSP";
-
+        case nciMessageId::CORE_SET_CONFIG_RSP:
+            return "CORE_SET_CONFIG_RSP";
         default:
             return "Unknow Message";
     }

@@ -10,31 +10,42 @@
 // ###                                                                       ###
 // #############################################################################
 
-#include <stdint.h>        // Gives us access to uint8_t types etc
+#include <stdint.h>
 
-enum class tagPresentStatus : uint8_t {
-    unknown,
-    noTagPresent,
-    newTagPresent,
-    oldTagPresent
+enum class tagStatus : uint8_t {
+    absent,
+    foundNew,
+    old,
+    removed
 };
 
+const char* toString(tagStatus status);
 
 class tag {
   public:
-    tag();
     uint8_t getUniqueIdLength() const;
-    void clear();
-    bool operator==(const tag& otherTag) const;
-    const uint8_t& operator[](int) const;
+    const uint8_t* getUniqueId() const;
+    void setUniqueId(const uint8_t length, const uint8_t* data);
+
     void dump() const;
 
     static constexpr uint8_t maxUniqueIdLength{10U};
-    static constexpr uint8_t defaultIdByte{0};
 
 #ifndef unitTesting
   private:
 #endif
-    uint8_t uniqueIdLength{0};        // Can be 4, 7 or 10 bytes
+    uint8_t uniqueIdLength{0};
     uint8_t uniqueId[maxUniqueIdLength]{0};
+    friend bool operator==(const tag& firstTag, const tag& secondTag) {
+        if (firstTag.uniqueIdLength == secondTag.uniqueIdLength) {
+            for (uint8_t index = 0; index < firstTag.uniqueIdLength; index++) {
+                if (firstTag.uniqueId[index] != secondTag.uniqueId[index]) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 };

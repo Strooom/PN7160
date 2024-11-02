@@ -11,14 +11,18 @@
 #include <tag.hpp>
 #include <logging.hpp>
 
-tag::tag() {
-    clear();
-}
-
-void tag::clear() {
-    uniqueIdLength = 0;
-    for (uint8_t index = 0; index < maxUniqueIdLength; index++) {
-        uniqueId[index] = 0;
+const char* toString(tagStatus status) {
+    switch (status) {
+        case tagStatus::absent:
+            return "no tag";
+        case tagStatus::foundNew:
+            return "new tag";
+        case tagStatus::old:
+            return "old tag";
+        case tagStatus::removed:
+            return "tag removed";
+        default:
+            return "unknown";
     }
 }
 
@@ -26,29 +30,31 @@ uint8_t tag::getUniqueIdLength() const {
     return uniqueIdLength;
 }
 
-const uint8_t& tag::operator[](int index) const {
-    if (index < uniqueIdLength) {
-        return uniqueId[index];
-    }
-    return defaultIdByte;
+const uint8_t* tag::getUniqueId() const {
+    return uniqueId;
 }
 
-bool tag::operator==(const tag& otherTag) const {
-    if (uniqueIdLength == otherTag.uniqueIdLength) {
-        for (uint8_t index = 0; index < uniqueIdLength; index++) {
-            if (uniqueId[index] != otherTag.uniqueId[index]) {
-                return false;
-            }
-        }
-        return true;
-    } else {
-        return false;
+void tag::setUniqueId(const uint8_t length, const uint8_t* data) {
+    switch (length) {
+        case 4:
+        case 7:
+        case 10:
+            uniqueIdLength = length;
+            break;
+
+        default:
+            uniqueIdLength = 0;
+            break;
+    }
+    for (uint8_t index = 0; index < uniqueIdLength; index++) {
+        uniqueId[index] = data[index];
     }
 }
 
 void tag::dump() const {
     logging::snprintf("uniqueID[%d] = ", uniqueIdLength);
-    for (uint8_t index = 0; index < maxUniqueIdLength; index++) {
+    for (uint8_t index = 0; index < uniqueIdLength; index++) {
         logging::snprintf("0x%02X ", uniqueId[index]);
     }
+    logging::snprintf("\n");
 }

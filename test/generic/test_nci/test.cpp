@@ -13,16 +13,16 @@ void tearDown(void) {        // after each test
 void test_initialize() {
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
     TEST_ASSERT_EQUAL(nciState::boot, nci::getState());
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::tagsStatus);
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::getTagPresentStatus());
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::theTagStatus);
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::getTagStatus());
 }
 
 void test_reset() {
     nci::moveState(nciState::waitForConfigResponse);
-    nci::tagsStatus = tagPresentStatus::oldTagPresent;
+    nci::theTagStatus = tagStatus::old;
     nci::reset();
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
-    TEST_ASSERT_EQUAL(tagPresentStatus::unknown, nci::tagsStatus);
+    TEST_ASSERT_EQUAL(tagStatus::absent, nci::theTagStatus);
 }
 
 void test_check_status() {
@@ -33,10 +33,10 @@ void test_state_machine() {
     nci::reset();
     nci::run();
     TEST_ASSERT_EQUAL(nciState::venResetActive, nci::getState());
-    singleTimer::mockMillis += 5;
+    singleShotTimer::mockMillis += 5;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForResetDone, nci::getState());
-    singleTimer::mockMillis += 5;
+    singleShotTimer::mockMillis += 5;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForCoreResetResponse, nci::getState());
 }
@@ -44,66 +44,66 @@ void test_state_machine() {
 void test_state_machine_timeouts() {
     PN7160Interface::mockIrqPin = false;
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForCoreResetResponse;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForCoreResetResponse, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForCoreResetNotification;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForCoreResetNotification, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitforCoreInitResponse;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitforCoreInitResponse, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForConfigResponse;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForConfigResponse, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForDiscoverResponse;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForRfDeactivationResponse;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForRfDeactivationResponse, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 
-    singleTimer::mockMillis = 0;
+    singleShotTimer::mockMillis = 0;
     nci::responseTimeoutTimer.start(nci::standardResponseTimeout);
     nci::state = nciState::waitForRfDeactivationNotification;
     nci::run();
     TEST_ASSERT_EQUAL(nciState::waitForRfDeactivationNotification, nci::getState());
-    singleTimer::mockMillis += (nci::standardResponseTimeout + 1);
+    singleShotTimer::mockMillis += (nci::standardResponseTimeout + 1);
     nci::run();
     TEST_ASSERT_EQUAL(nciState::error, nci::getState());
 }
@@ -118,7 +118,8 @@ void test_dummy() {
     nci::getMessageId(nci::rxBuffer);
     nci::timeoutError();
     nci::unexpectedMessageError();
-    nci::startDiscover();
+    nci::startDiscover1();
+    nci::startDiscover2();
     nci::configure();
 }
 

@@ -3,11 +3,14 @@
 #include <pn7160interface.hpp>
 
 nciState nci::state{nciState::boot};
-tagPresentStatus nci::tagsStatus{tagPresentStatus::unknown};
+tagStatus nci::theTagStatus{tagStatus::absent};
+tag nci::tagData;
+
 uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 uint32_t nci::rxMessageLength;
 uint8_t nci::txBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
-singleTimer nci::responseTimeoutTimer;
+singleShotTimer nci::responseTimeoutTimer;
+singleShotTimer nci::noTagFoundTimoutTimer;
 
 void nci::moveState(nciState newState) {
     logging::snprintf(logging::source::stateChanges, "nci stateChange from %s (%d) to %s (%d)\n", toString(state), state, toString(newState), newState);
@@ -16,7 +19,7 @@ void nci::moveState(nciState newState) {
 
 void nci::reset() {
     moveState(nciState::boot);
-    tagsStatus = tagPresentStatus::unknown;
+    theTagStatus = tagStatus::absent;
 }
 
 void nci::run() {
@@ -28,7 +31,7 @@ void nci::run() {
             break;
 
         case nciState::venResetActive:
-            if (responseTimeoutTimer.expired()) {
+            if (responseTimeoutTimer.isExpired()) {
                 PN7160Interface::setVenPin(true);
                 responseTimeoutTimer.start(3U);
                 moveState(nciState::waitForResetDone);
@@ -36,174 +39,52 @@ void nci::run() {
             break;
 
         case nciState::waitForResetDone:
-            if (responseTimeoutTimer.expired()) {
-                static constexpr uint32_t payloadLength{1};
-                uint8_t payloadData[payloadLength] = {resetKeepConfig};
-                sendMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_RESET_CMD, payloadData, payloadLength);
-                responseTimeoutTimer.start(standardResponseTimeout);
-                moveState(nciState::waitForCoreResetResponse);
+            if (responseTimeoutTimer.isExpired()) {
+                sendCoreReset();
             }
             break;
 
         case nciState::waitForCoreResetResponse:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::CORE_RESET_RSP:
-                        if (checkMessageStatus(rxBuffer[3])) {
-                            responseTimeoutTimer.start(standardResponseTimeout);
-                            moveState(nciState::waitForCoreResetNotification);
-                        } else {
-                            logging::snprintf(logging::source::criticalError, "Invalid CORE_RESET_RSP status\n");
-                            moveState(nciState::error);
-                        }
-                        break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::CORE_RESET_RSP, nciState::waitForCoreResetNotification, standardResponseTimeout);
             break;
 
         case nciState::waitForCoreResetNotification:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::CORE_RESET_NTF: {
-                        static constexpr uint32_t payloadLength{2};
-                        uint8_t payloadData[payloadLength] = {0, 0};
-                        sendMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_INIT_CMD, payloadData, payloadLength);
-                        responseTimeoutTimer.start(standardResponseTimeout);
-                        moveState(nciState::waitforCoreInitResponse);
-                    } break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::CORE_RESET_NTF, nciState::waitforCoreInitResponse, sendCoreInit);
             break;
 
         case nciState::waitforCoreInitResponse:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::CORE_INIT_RSP:
-                        configure();
-                        break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::CORE_INIT_RSP, nciState::waitForConfigResponse, configure);
             break;
 
         case nciState::waitForConfigResponse:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::CORE_SET_CONFIG_RSP:
-                        startDiscover();
-                        break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::CORE_SET_CONFIG_RSP, nciState::waitForDiscoverResponse, startDiscover1);
             break;
 
         case nciState::waitForDiscoverResponse:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::RF_DISCOVER_RSP:
-                        moveState(nciState::waitForDiscoverNotification);
-                        break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::RF_DISCOVER_RSP, nciState::waitForDiscoverNotification, startDiscover2);
             break;
 
         case nciState::waitForDiscoverNotification:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::RF_INTF_ACTIVATED_NTF: {
-                        static constexpr uint32_t payloadLength{1};
-                        uint8_t payloadData[payloadLength] = {0};        // Idle mode
-                        sendMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DEACTIVATE_CMD, payloadData, payloadLength);
-                        responseTimeoutTimer.start(standardResponseTimeout);
-                        moveState(nciState::waitForRfDeactivationResponse);
-                    } break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            }
+            waitForTag();
             break;
 
         case nciState::waitForRfDeactivationResponse:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::RF_DEACTIVATE_RSP: {
-                        responseTimeoutTimer.start(standardResponseTimeout);
-                        moveState(nciState::waitForRfDeactivationNotification);
-                    } break;
-
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
-            }
+            waitForMessage(nciMessageId::RF_DEACTIVATE_RSP, nciState::waitForRfDeactivationNotification, standardResponseTimeout);
             break;
 
         case nciState::waitForRfDeactivationNotification:
-            if (PN7160Interface::hasMessage()) {
-                getMessage();
-                switch (getMessageId(rxBuffer)) {
-                    case nciMessageId::RF_DEACTIVATE_NTF:
-                        startDiscover();
-                        break;
+            waitForMessage(nciMessageId::RF_DEACTIVATE_NTF, nciState::waitForRestartDiscovery, 500U);
+            break;
 
-                    default:
-                        unexpectedMessageError();
-                        break;
-                }
-            } else if (responseTimeoutTimer.expired()) {
-                timeoutError();
+        case nciState::waitForRestartDiscovery:
+            if (responseTimeoutTimer.isExpired()) {
+                startDiscover1();
+                moveState(nciState::waitForDiscoverResponse);
             }
             break;
 
         case nciState::error:
-            responseTimeoutTimer.start(1000);
-            moveState(nciState::test);
-
-            break;
-
-        case nciState::test:
-            if (responseTimeoutTimer.expired()) {
-                reset();
-            }
+            // For the time being, we end here... Later it should reset a number of trials to repair occasional errors...
             break;
 
         default:
@@ -215,8 +96,20 @@ nciState nci::getState() {
     return state;
 }
 
-tagPresentStatus nci::getTagPresentStatus() {
-    return tagsStatus;
+tagStatus nci::getTagStatus() {
+    tagStatus result{theTagStatus};
+    switch (theTagStatus) {
+        case tagStatus::foundNew:
+            theTagStatus = tagStatus::old;
+            break;
+        case tagStatus::removed:
+            theTagStatus = tagStatus::absent;
+            break;
+
+        default:
+            break;
+    }
+    return result;
 }
 
 void nci::sendMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[], const uint8_t thePayloadLength) {
@@ -244,8 +137,10 @@ void nci::sendMessage(const messageType theMessageType, const groupIdentifier gr
 void nci::getMessage() {
     PN7160Interface::wakeUp();
     rxMessageLength = PN7160Interface::read(rxBuffer);
-    logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
-    dumpRawMessage(rxBuffer, rxMessageLength);
+    if (logging::isActive(logging::source::nciMessages)) {
+        logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
+        dumpRawMessage(rxBuffer, rxMessageLength);
+    }
 }
 
 bool nci::checkMessageLength(const uint8_t expectedLength) {
@@ -284,12 +179,15 @@ void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
     logging::snprintf("\n");
 }
 
-void nci::startDiscover() {
+void nci::startDiscover1() {
     static constexpr uint32_t payloadLength{7};
     uint8_t payloadData[payloadLength] = {3, 0, 1, 1, 1, 2, 1};
     sendMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DISCOVER_CMD, payloadData, payloadLength);
     responseTimeoutTimer.start(standardResponseTimeout);
-    moveState(nciState::waitForDiscoverResponse);
+}
+
+void nci::startDiscover2() {
+    noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
 }
 
 void nci::configure() {
@@ -307,4 +205,95 @@ void nci::timeoutError() {
 void nci::unexpectedMessageError() {
     logging::snprintf(logging::source::criticalError, "unexpected NCI message %s\n", toString(getMessageId(rxBuffer)));
     moveState(nciState::error);
+}
+
+void nci::updateTag() {
+    tag receivedTag;
+    static constexpr uint8_t byeOffset{12};
+    receivedTag.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
+    if (receivedTag == tagData) {
+        theTagStatus = tagStatus::old;
+    } else {
+        theTagStatus = tagStatus::foundNew;
+        tagData.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
+    }
+}
+
+void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*doAction)()) {
+    if (PN7160Interface::hasMessage()) {
+        getMessage();
+        if (expectedMessageId == getMessageId(rxBuffer)) {
+            doAction();
+            moveState(nextState);
+        } else {
+            unexpectedMessageError();
+            moveState(nciState::error);
+        }
+    } else if (responseTimeoutTimer.isExpired()) {
+        timeoutError();
+        moveState(nciState::error);
+    }
+}
+
+void nci::waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout) {
+    if (PN7160Interface::hasMessage()) {
+        getMessage();
+        if (expectedMessageId == getMessageId(rxBuffer)) {
+            responseTimeoutTimer.start(timeout);
+            moveState(nextState);
+        } else {
+            unexpectedMessageError();
+            moveState(nciState::error);
+        }
+    } else if (responseTimeoutTimer.isExpired()) {
+        timeoutError();
+        moveState(nciState::error);
+    }
+}
+
+void nci::sendCoreReset() {
+    static constexpr uint32_t payloadLength{1};
+    uint8_t payloadData[payloadLength] = {resetKeepConfig};
+    sendMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_RESET_CMD, payloadData, payloadLength);
+    responseTimeoutTimer.start(standardResponseTimeout);
+    moveState(nciState::waitForCoreResetResponse);
+}
+
+void nci::sendCoreInit() {
+    static constexpr uint32_t payloadLength{2};
+    uint8_t payloadData[payloadLength] = {0, 0};
+    sendMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_INIT_CMD, payloadData, payloadLength);
+    responseTimeoutTimer.start(standardResponseTimeout);
+}
+
+void nci::sendDeactivate() {
+    static constexpr uint32_t payloadLength{1};
+    uint8_t payloadData[payloadLength] = {0};        // Idle mode
+    sendMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DEACTIVATE_CMD, payloadData, payloadLength);
+    responseTimeoutTimer.start(standardResponseTimeout);
+}
+
+void nci::waitForTag() {
+    if (PN7160Interface::hasMessage()) {
+        getMessage();
+        if (nciMessageId::RF_INTF_ACTIVATED_NTF == getMessageId(rxBuffer)) {
+            updateTag();
+            sendDeactivate();
+            moveState(nciState::waitForRfDeactivationResponse);
+        } else {
+            unexpectedMessageError();
+            moveState(nciState::error);
+        }
+    } else if (noTagFoundTimoutTimer.isExpired()) {
+        switch (theTagStatus) {
+            case tagStatus::foundNew:
+            case tagStatus::old:
+                theTagStatus = tagStatus::removed;
+                break;
+            default:
+                break;
+        }
+        tagData.setUniqueId(0, nullptr);
+        logging::snprintf(logging::source::tagEvents, "Tag data cleared\n");
+    }
 }

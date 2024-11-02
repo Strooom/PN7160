@@ -20,6 +20,8 @@ enum class nciState : uint8_t {
     waitForRfDeactivationResponse,
     waitForRfDeactivationNotification,
 
+    waitForRestartDiscovery,
+
     error,
     test
 

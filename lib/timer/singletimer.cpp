@@ -2,10 +2,10 @@
 #ifndef generic
 #include <Arduino.h>
 #else
-unsigned long singleTimer::mockMillis{0};
+unsigned long singleShotTimer::mockMillis{0};
 #endif
 
-bool singleTimer::expired() {
+bool singleShotTimer::isExpired() {
     if (timerIsRunning) {
         unsigned long now{0};
 #ifndef generic
@@ -13,7 +13,7 @@ bool singleTimer::expired() {
 #else
         now = mockMillis;
 #endif
-        if (now - startTime > timerDuration) {
+        if (now - timerStartTime > timerDuration) {
             timerIsRunning = false;
             return true;
         } else {
@@ -24,7 +24,7 @@ bool singleTimer::expired() {
     }
 }
 
-bool singleTimer::expiredAndContinue() const {
+bool singleShotTimer::isExpiredAndContinue() const {
     if (timerIsRunning) {
         unsigned long now{0};
 #ifndef generic
@@ -32,7 +32,7 @@ bool singleTimer::expiredAndContinue() const {
 #else
         now = mockMillis;
 #endif
-        if (now - startTime > timerDuration) {
+        if (now - timerStartTime > timerDuration) {
             return true;
         } else {
             return false;
@@ -42,19 +42,19 @@ bool singleTimer::expiredAndContinue() const {
     }
 }
 
-void singleTimer::start(unsigned long theTimerDuration) {
+void singleShotTimer::start(unsigned long theTimerDuration) {
     unsigned long now{0};
 #ifndef generic
     now = millis();
 #else
     now = mockMillis;
 #endif
-    startTime      = now;
+    timerStartTime = now;
     timerDuration  = theTimerDuration;
     timerIsRunning = true;
 }
 
-void singleTimer::startOrContinue(unsigned long theTimerDuration) {
+void singleShotTimer::startOrContinue(unsigned long theTimerDuration) {
     if (!timerIsRunning) {
         unsigned long now{0};
 #ifndef generic
@@ -62,21 +62,21 @@ void singleTimer::startOrContinue(unsigned long theTimerDuration) {
 #else
         now = mockMillis;
 #endif
-        startTime      = now;
+        timerStartTime = now;
         timerDuration  = theTimerDuration;
         timerIsRunning = true;
     }
 }
 
-void singleTimer::stop() {
+void singleShotTimer::stop() {
     timerIsRunning = false;
 }
 
-bool singleTimer::isRunning() const{
+bool singleShotTimer::isRunning() const {
     return timerIsRunning;
 }
 
-unsigned long singleTimer::value() const {
+unsigned long singleShotTimer::timePassed() const {
     if (timerIsRunning) {
         unsigned long now{0};
 #ifndef generic
@@ -84,12 +84,30 @@ unsigned long singleTimer::value() const {
 #else
         now = mockMillis;
 #endif
-        return (now - startTime);
+        return (now - timerStartTime);
     } else {
         return 0;
     }
 }
 
-unsigned long singleTimer::duration() const {
+unsigned long singleShotTimer::timeRemaining() const {
+    if (timerIsRunning) {
+        unsigned long now{0};
+#ifndef generic
+        now = millis();
+#else
+        now = mockMillis;
+#endif
+        return (timerDuration - (now - timerStartTime));
+    } else {
+        return 0;
+    }
+}
+
+unsigned long singleShotTimer::duration() const {
     return timerDuration;
+}
+
+unsigned long singleShotTimer::startTime() const {
+    return timerStartTime;
 }

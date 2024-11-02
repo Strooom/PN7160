@@ -24,6 +24,8 @@ const char* toString(nciState state) {
             return "waitForRfDeactivationResponse";
         case nciState::waitForRfDeactivationNotification:
             return "waitForRfDeactivationNotification";
+        case nciState::waitForRestartDiscovery:
+            return "waitForRestartDiscovery";
         case nciState::error:
             return "error";
         case nciState::test:

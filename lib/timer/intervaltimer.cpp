@@ -6,10 +6,10 @@ unsigned long intervalTimer::mockMillis{0};
 #endif
 
 void intervalTimer::set(unsigned long interval) {
-    intervalDuration = interval;
+    timerDuration = interval;
 }
 
-bool intervalTimer::expired() {
+bool intervalTimer::isExpired() {
     unsigned long now;
 #ifndef generic
     now = millis();
@@ -18,8 +18,8 @@ bool intervalTimer::expired() {
 #endif
 
     if (timerIsRunning) {
-        if (now - intervalStartTime > intervalDuration) {
-            intervalStartTime += intervalDuration;
+        if (now - timerStartTime > timerDuration) {
+            timerStartTime += timerDuration;
             return true;
         } else {
             return false;
@@ -30,42 +30,34 @@ bool intervalTimer::expired() {
 }
 
 void intervalTimer::start() {
-    if (intervalDuration > 0) {
+    if (timerDuration > 0) {
         unsigned long now;
 #ifndef generic
         now = millis();
 #else
         now = mockMillis;
 #endif
-        intervalStartTime = now;
-        timerIsRunning    = true;
+        timerStartTime = now;
+        timerIsRunning = true;
     }
 }
 
 void intervalTimer::startOrContinue() {
-    if (!timerIsRunning && (intervalDuration > 0)) {
+    if (!timerIsRunning && (timerDuration > 0)) {
         unsigned long now;
 #ifndef generic
         now = millis();
 #else
         now = mockMillis;
 #endif
-        intervalStartTime = now;
-        timerIsRunning    = true;
+        timerStartTime = now;
+        timerIsRunning = true;
     }
 }
 
 void intervalTimer::start(unsigned long interval) {
-    intervalDuration = interval;
-    unsigned long now;
-#ifndef generic
-    now = millis();
-#else
-    now = mockMillis;
-#endif
-
-    intervalStartTime = now;
-    timerIsRunning    = true;
+    set(interval);
+    start();
 }
 
 void intervalTimer::stop() {
@@ -76,7 +68,7 @@ bool intervalTimer::isRunning() const {
     return timerIsRunning;
 }
 
-unsigned long intervalTimer::value() const {
+unsigned long intervalTimer::timePassed() const {
     if (timerIsRunning) {
         unsigned long now;
 #ifndef generic
@@ -84,13 +76,30 @@ unsigned long intervalTimer::value() const {
 #else
         now = mockMillis;
 #endif
-
-        return (now - intervalStartTime);
+        return (now - timerStartTime);
     } else {
         return 0;
     }
 }
 
-unsigned long intervalTimer::interval() const {
-    return intervalDuration;
+unsigned long intervalTimer::duration() const {
+    return timerDuration;
+}
+
+unsigned long intervalTimer::timeRemaining() const {
+    if (timerIsRunning) {
+        unsigned long now;
+#ifndef generic
+        now = millis();
+#else
+        now = mockMillis;
+#endif
+        return ((timerStartTime + timerDuration) - now);
+    } else {
+        return 0;
+    }
+}
+
+unsigned long intervalTimer::startTime() const {
+    return timerStartTime;
 }
