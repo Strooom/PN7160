@@ -49,6 +49,7 @@ void test_dummy() {
 int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_initialize);
+    RUN_TEST(test_hasMessage);
     RUN_TEST(test_dummy);
     UNITY_END();
 }
