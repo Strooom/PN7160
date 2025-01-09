@@ -13,7 +13,7 @@
 //     IRQ : output of the PN7160, input for the MCU. Through this signal the PN7160 signals it has data to be read by the MCU, active HIGH
 //     VEN : input of the PN7160, output for the MCU. Through this signal the MCU can RESET the PN7160, active LOW
 
-#include <stdint.h>        // Gives us access to uint8_t types etc.
+#include <stdint.h>
 
 class PN7160Interface {
   public:
@@ -31,9 +31,11 @@ class PN7160Interface {
     static uint8_t VENpin;
     static uint8_t I2Caddress;
     static constexpr uint8_t i2cError{4U};
-    static constexpr uint8_t i2cRetries{2U};
-    static constexpr uint8_t i2cRetryTimout{2U};
+    static constexpr uint8_t i2cRetries{3U};
+    static constexpr uint8_t i2cRetryTimout{5U};
 #ifdef generic
     static bool mockIrqPin;
+    static bool mockWakeUp;
+    static uint8_t mockMessageData[255];
 #endif
 };

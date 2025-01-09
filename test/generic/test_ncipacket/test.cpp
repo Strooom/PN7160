@@ -26,7 +26,7 @@ void test_dummy() {
     TEST_ASSERT_EQUAL_STRING("RF_DISCOVER_NTF", toString(nciMessageId::RF_DISCOVER_NTF));
     TEST_ASSERT_EQUAL_STRING("RF_INTF_ACTIVATED_NTF", toString(nciMessageId::RF_INTF_ACTIVATED_NTF));
     TEST_ASSERT_EQUAL_STRING("RF_DEACTIVATE_RSP", toString(nciMessageId::RF_DEACTIVATE_RSP));
-    TEST_ASSERT_EQUAL_STRING("Unknow Message", toString(static_cast<nciMessageId>(0xFF)));
+    TEST_ASSERT_EQUAL_STRING("Unknown Message", toString(static_cast<nciMessageId>(0xFF)));
 }
 
 

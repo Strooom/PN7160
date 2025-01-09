@@ -16,12 +16,10 @@
 #include <ncistate.hpp>
 #include <ncipacket.hpp>
 #include <singletimer.hpp>
+#include <pn7160configcollection.hpp>
 
 class nci {
   public:
-    static void startDiscover1();
-    static void startDiscover2();
-
     static void run();
     static void reset();
 
@@ -29,7 +27,6 @@ class nci {
     static tagStatus getTagStatus();
     static tag tagData;
 
-    static bool checkMessageType(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId);
     static messageType getMessageType(const uint8_t msgBuffer[]);
     static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
     static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
@@ -44,6 +41,8 @@ class nci {
     static nciState state;
     static void moveState(nciState newState);
 
+    static pn7160configcollection pn7160configuration;
+
     static singleShotTimer responseTimeoutTimer;
     static singleShotTimer noTagFoundTimoutTimer;
 
@@ -56,16 +55,29 @@ class nci {
     static uint32_t rxMessageLength;
     static uint8_t txBuffer[maxPayloadSize + msgHeaderSize];
 
-    static void sendMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[] = nullptr, const uint8_t payloadLength = 0);
+    static void sendNciMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[] = nullptr, const uint8_t payloadLength = 0);
     static void getMessage();
     static bool checkMessageLength(const uint8_t expectedLength);
     static bool checkMessageStatus(const uint8_t receivedStatus);
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)());
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout);
-    static void waitForTag();
-    static void configure();
-    static void timeoutError();
-    static void unexpectedMessageError();
+
+    static void handleNciMessage(nciMessageId expectedMessageId, void (*handler)());
+
+    static void handleResetResponse();
+    static void handleResetNotification();
+    static void handleInitResponse();
+    static void handleGetConfigResponse();
+    static void handleSetConfigResponse();
+    static void handleRfDiscoverResponse();
+    static void handleRfInterfaceActivatedNotification();
+    static void handleRfDeactivationResponse();
+    static void handleRfDeactivationNotification();
+
+    static void sendGetConfig();
+    static void sendSetConfig();
+    static void sendStartDiscover();
+
+    static bool configLengthMatches();
+    static bool configDataMatches();
 
     static constexpr unsigned long scanPeriod{500};
     static constexpr unsigned long waitForReDiscoverTimeout{500};
@@ -77,7 +89,9 @@ class nci {
     static constexpr uint8_t resetClearConfig{0x01};
 
     static void sendCoreReset();
-    static void waitForCoreReset();
     static void sendCoreInit();
-    static void sendDeactivate();
+    static void sendRfDeactivate();
+
+    static void handleNoResponseTimeout();
+    static void unexpectedMessageError();
 };

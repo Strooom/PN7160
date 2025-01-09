@@ -6,24 +6,26 @@ const char* toString(nciState state) {
             return "boot";
         case nciState::venResetActive:
             return "venResetActive";
-        case nciState::waitForResetDone:
-            return "waitForResetDone";
+        case nciState::waitForHwReset:
+            return "waitForHwReset";
         case nciState::waitForCoreResetResponse:
             return "waitForCoreResetResponse";
         case nciState::waitForCoreResetNotification:
             return "waitForCoreResetNotification";
-        case nciState::waitforCoreInitResponse:
+        case nciState::waitForCoreInitResponse:
             return "waitforCoreInitResponse";
-        case nciState::waitForConfigResponse:
-            return "waitForConfigResponse";
+        case nciState::waitForGetConfigResponse:
+            return "waitForGetConfigResponse";
+        case nciState::waitForSetConfigResponse:
+            return "waitForSetConfigResponse";
         case nciState::waitForDiscoverResponse:
             return "waitForDiscoverResponse";
-        case nciState::waitForDiscoverNotification:
-            return "waitForDiscoverNotification";
-        case nciState::waitForRfDeactivationResponse:
-            return "waitForRfDeactivationResponse";
-        case nciState::waitForRfDeactivationNotification:
-            return "waitForRfDeactivationNotification";
+        case nciState::waitForRfInterfaceActivatedNotification:
+            return "waitForRfInterfaceActivatedNotification";
+        case nciState::waitForRfDeactivateResponse:
+            return "waitForRfDeactivateResponse";
+        case nciState::waitForRfDeactivateNotification:
+            return "waitForRfDeactivateNotification";
         case nciState::waitForRestartDiscovery:
             return "waitForRestartDiscovery";
         case nciState::error:

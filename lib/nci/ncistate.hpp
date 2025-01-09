@@ -6,19 +6,20 @@ enum class nciState : uint8_t {
     boot,
     venResetActive,
 
-    waitForResetDone,
+    waitForHwReset,
     waitForCoreResetResponse,
     waitForCoreResetNotification,
 
-    waitforCoreInitResponse,
+    waitForCoreInitResponse,
 
-    waitForConfigResponse,
+    waitForGetConfigResponse,
+    waitForSetConfigResponse,
 
     waitForDiscoverResponse,
-    waitForDiscoverNotification,
+    waitForRfInterfaceActivatedNotification,
 
-    waitForRfDeactivationResponse,
-    waitForRfDeactivationNotification,
+    waitForRfDeactivateResponse,
+    waitForRfDeactivateNotification,
 
     waitForRestartDiscovery,
 

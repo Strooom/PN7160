@@ -16,11 +16,13 @@ class logging {
         uart1
     };
     enum class source : uint32_t {        // We can send logging from the following sources, when they are enabled :
-        stateChanges  = 0,
-        nciMessages   = 1,
-        tagEvents     = 2,
-        error         = 30,
-        criticalError = 31
+        stateChanges       = 0,
+        nciMessages        = 1,
+        nciMessageBytes    = 2,
+        nciMessagesDecoded = 3,
+        tagEvents          = 10,
+        error              = 30,
+        criticalError      = 31
     };
 
     static constexpr uint32_t bufferLength{256};
