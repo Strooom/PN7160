@@ -12,19 +12,19 @@ void tearDown(void) {
 }
 
 void test_initialize() {
-    TEST_ASSERT_EQUAL(2, nci::pn7160configuration.nmbrOfConfigs);
-    TEST_ASSERT_EQUAL(0, nci::pn7160configuration.activeConfig);
+    TEST_ASSERT_EQUAL(2, pn7160configcollection::nmbrOfConfigs);
+    TEST_ASSERT_EQUAL(0, pn7160configcollection::activeConfig);
 
-    TEST_ASSERT_EQUAL_UINT16(0x0000, nci::pn7160configuration.configs[0].tag);
-    TEST_ASSERT_EQUAL_UINT16(0xA00E, nci::pn7160configuration.configs[1].tag);
+    TEST_ASSERT_EQUAL_UINT16(0x0000, pn7160configcollection::configs[0].tag);
+    TEST_ASSERT_EQUAL_UINT16(0xA00E, pn7160configcollection::configs[1].tag);
 
-    TEST_ASSERT_EQUAL_UINT8(0x02, nci::pn7160configuration.configs[0].length);
-    TEST_ASSERT_EQUAL_UINT8(0x0B, nci::pn7160configuration.configs[1].length);
+    TEST_ASSERT_EQUAL_UINT8(0x02, pn7160configcollection::configs[0].length);
+    TEST_ASSERT_EQUAL_UINT8(0x0B, pn7160configcollection::configs[1].length);
 
     uint8_t expectedData0[2] = {0xF4, 0x01};
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData0, nci::pn7160configuration.configs[0].data, 2);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData0, pn7160configcollection::configs[0].data, 2);
     uint8_t expectedData1[11] = {0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C};
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData1, nci::pn7160configuration.configs[1].data, 11);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData1, pn7160configcollection::configs[1].data, 11);
 }
 
 void test_get_config() {

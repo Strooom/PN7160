@@ -27,13 +27,6 @@ class nci {
     static tagStatus getTagStatus();
     static tag tagData;
 
-    static messageType getMessageType(const uint8_t msgBuffer[]);
-    static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
-    static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
-    static nciMessageId getMessageId(const uint8_t msgBuffer[]);
-
-    static void dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length);
-
 #ifndef unitTesting
   private:
 #endif
@@ -41,7 +34,7 @@ class nci {
     static nciState state;
     static void moveState(nciState newState);
 
-    static pn7160configcollection pn7160configuration;
+    //static pn7160configcollection pn7160configuration;
 
     static singleShotTimer responseTimeoutTimer;
     static singleShotTimer noTagFoundTimoutTimer;
@@ -81,7 +74,7 @@ class nci {
 
     static constexpr unsigned long scanPeriod{500};
     static constexpr unsigned long waitForReDiscoverTimeout{500};
-    static void updateTag();
+    static void radTagData();
 
     static constexpr unsigned long standardResponseTimeout{10U};
     static constexpr unsigned long noTagDiscoverdTimeout{500U};
@@ -94,4 +87,10 @@ class nci {
 
     static void handleNoResponseTimeout();
     static void unexpectedMessageError();
+
+    static messageType getMessageType(const uint8_t msgBuffer[]);
+    static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
+    static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
+    static nciMessageId getMessageId(const uint8_t msgBuffer[]);
+    static void dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length);
 };

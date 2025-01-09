@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdint.h>
+#include <algorithm>
+#include <initializer_list>
 
 class pn7160config {
   public:
@@ -9,7 +11,10 @@ class pn7160config {
     const uint8_t length;
     const uint8_t data[maxLenght];
 
-  private:
+    pn7160config(uint16_t t, std::initializer_list<uint8_t> initData) : tag(t), length(initData.size()), data{0} {
+        std::copy(initData.begin(), initData.end(), const_cast<uint8_t*>(data));
+    }
 
-  friend class pn7160configcollection;
+  private:
+    friend class pn7160configcollection;
 };
