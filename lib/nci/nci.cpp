@@ -16,7 +16,7 @@ tag nci::tagData;
 void nci::run() {
     switch (state) {
         case nciState::boot:
-            pn7160configcollection::activeConfig = 0;
+            pn7160ConfigCollection::activeConfig = 0;
             PN7160Interface::setVenPin(false);
             responseTimeoutTimer.start(3U);
             moveState(nciState::venResetActive);
@@ -135,7 +135,7 @@ void nci::sendCoreInit() {
 }
 
 void nci::handleInitResponse() {
-    if (pn7160configcollection::activeConfig >= pn7160configcollection::nmbrOfConfigs) {
+    if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
         noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
@@ -151,12 +151,12 @@ void nci::sendGetConfig() {
     uint8_t payload[3]{};        // CORE_GET_CONFIG_CMD has 2 bytes payload for normal tags, and 3 bytes for PN7160 extended tags
     payload[0] = 1;              // to keep it simple, we query all configs one by one
     uint8_t payloadLength;
-    if (pn7160configcollection::configs[pn7160configcollection::activeConfig].tag <= 0xFF) {
-        payload[1]    = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag & 0xFF);
+    if (pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag <= 0xFF) {
+        payload[1]    = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag & 0xFF);
         payloadLength = 2;
     } else {
-        payload[1]    = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag >> 8);
-        payload[2]    = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag & 0xFF);
+        payload[1]    = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag >> 8);
+        payload[2]    = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag & 0xFF);
         payloadLength = 3;
     }
     sendNciMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_GET_CONFIG_CMD, payload, payloadLength);
@@ -164,8 +164,8 @@ void nci::sendGetConfig() {
 
 void nci::handleGetConfigResponse() {
     if (configLengthMatches() && configDataMatches()) {
-        pn7160configcollection::activeConfig++;
-        if (pn7160configcollection::activeConfig >= pn7160configcollection::nmbrOfConfigs) {
+        pn7160ConfigCollection::activeConfig++;
+        if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
             sendStartDiscover();
             responseTimeoutTimer.start(standardResponseTimeout);
             noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
@@ -184,8 +184,8 @@ void nci::handleGetConfigResponse() {
 }
 
 void nci::handleSetConfigResponse() {
-    pn7160configcollection::activeConfig++;
-    if (pn7160configcollection::activeConfig >= pn7160configcollection::nmbrOfConfigs) {
+    pn7160ConfigCollection::activeConfig++;
+    if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
         noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
@@ -327,10 +327,10 @@ void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
 
 bool nci::configLengthMatches() {
     uint8_t expectedLength{0};
-    if (pn7160configcollection::configs[pn7160configcollection::activeConfig].tag > 0x00FF) {
-        expectedLength = 3 + 1 + 1 + 2 + 1 + pn7160configcollection::configs[pn7160configcollection::activeConfig].length;
+    if (pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag > 0x00FF) {
+        expectedLength = 3 + 1 + 1 + 2 + 1 + pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length;
     } else {
-        expectedLength = 3 + 1 + 1 + 1 + 1 + pn7160configcollection::configs[pn7160configcollection::activeConfig].length;
+        expectedLength = 3 + 1 + 1 + 1 + 1 + pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length;
     }
     bool lengthMatches = (rxMessageLength == expectedLength);
     if ((!lengthMatches) && (logging::isActive(logging::source::nciMessages))) {
@@ -341,20 +341,20 @@ bool nci::configLengthMatches() {
 
 bool nci::configDataMatches() {
     uint8_t configOffset{0};
-    if (pn7160configcollection::configs[pn7160configcollection::activeConfig].tag > 0x00FF) {
+    if (pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag > 0x00FF) {
         configOffset = 3 + 1 + 1 + 2 + 1;
     } else {
         configOffset = 3 + 1 + 1 + 1 + 1;
     }
 
-    bool configDataMatch = (memcmp(rxBuffer + configOffset, pn7160configcollection::configs[pn7160configcollection::activeConfig].data, pn7160configcollection::configs[pn7160configcollection::activeConfig].length) == 0);
+    bool configDataMatch = (memcmp(rxBuffer + configOffset, pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].data, pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length) == 0);
     if ((!configDataMatch) && (logging::isActive(logging::source::nciMessages))) {
         logging::snprintf("configData mismatch : ToBe : ");
-        for (uint32_t index = 0; index < pn7160configcollection::configs[pn7160configcollection::activeConfig].length; index++) {
-            logging::snprintf("%02X ", pn7160configcollection::configs[pn7160configcollection::activeConfig].data[index]);
+        for (uint32_t index = 0; index < pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length; index++) {
+            logging::snprintf("%02X ", pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].data[index]);
         }
         logging::snprintf("--- AsIs : ");
-        for (uint32_t index = 0; index < pn7160configcollection::configs[pn7160configcollection::activeConfig].length; index++) {
+        for (uint32_t index = 0; index < pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length; index++) {
             logging::snprintf("%02X ", rxBuffer[configOffset + index]);
         }
         logging::snprintf("\n");
@@ -364,7 +364,7 @@ bool nci::configDataMatches() {
 }
 
 void nci::sendSetConfig() {
-    uint8_t configPayload[pn7160config::maxLenght + 3]{};
+    uint8_t configPayload[pn7160Config::maxLength + 3]{};
     uint8_t configDataOffset{0};
     uint8_t payloadLength{0};
 
@@ -372,23 +372,23 @@ void nci::sendSetConfig() {
     payloadLength++;
     configDataOffset++;
 
-    if (pn7160configcollection::configs[pn7160configcollection::activeConfig].tag <= 0xFF) {
-        configPayload[1] = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag & 0xFF);
+    if (pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag <= 0xFF) {
+        configPayload[1] = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag & 0xFF);
         payloadLength += 1;
         configDataOffset += 1;
     } else {
-        configPayload[1] = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag >> 8);
-        configPayload[2] = static_cast<uint8_t>(pn7160configcollection::configs[pn7160configcollection::activeConfig].tag & 0xFF);
+        configPayload[1] = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag >> 8);
+        configPayload[2] = static_cast<uint8_t>(pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].tag & 0xFF);
         payloadLength += 2;
         configDataOffset += 2;
     }
 
-    configPayload[configDataOffset] = pn7160configcollection::configs[pn7160configcollection::activeConfig].length;
+    configPayload[configDataOffset] = pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length;
     payloadLength++;
     configDataOffset++;
 
-    memcpy(configPayload + configDataOffset, pn7160configcollection::configs[pn7160configcollection::activeConfig].data, pn7160configcollection::configs[pn7160configcollection::activeConfig].length);
-    payloadLength += pn7160configcollection::configs[pn7160configcollection::activeConfig].length;
+    memcpy(configPayload + configDataOffset, pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].data, pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length);
+    payloadLength += pn7160ConfigCollection::configs[pn7160ConfigCollection::activeConfig].length;
 
     sendNciMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_SET_CONFIG_CMD, configPayload, payloadLength);
 }

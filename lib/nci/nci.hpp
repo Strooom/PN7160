@@ -34,8 +34,6 @@ class nci {
     static nciState state;
     static void moveState(nciState newState);
 
-    //static pn7160configcollection pn7160configuration;
-
     static singleShotTimer responseTimeoutTimer;
     static singleShotTimer noTagFoundTimoutTimer;
 

@@ -12,19 +12,19 @@ void tearDown(void) {
 }
 
 void test_initialize() {
-    TEST_ASSERT_EQUAL(2, pn7160configcollection::nmbrOfConfigs);
-    TEST_ASSERT_EQUAL(0, pn7160configcollection::activeConfig);
+    TEST_ASSERT_EQUAL(2, pn7160ConfigCollection::nmbrOfConfigs);
+    TEST_ASSERT_EQUAL(0, pn7160ConfigCollection::activeConfig);
 
-    TEST_ASSERT_EQUAL_UINT16(0x0000, pn7160configcollection::configs[0].tag);
-    TEST_ASSERT_EQUAL_UINT16(0xA00E, pn7160configcollection::configs[1].tag);
+    TEST_ASSERT_EQUAL_UINT16(0x0000, pn7160ConfigCollection::configs[0].tag);
+    TEST_ASSERT_EQUAL_UINT16(0xA00E, pn7160ConfigCollection::configs[1].tag);
 
-    TEST_ASSERT_EQUAL_UINT8(0x02, pn7160configcollection::configs[0].length);
-    TEST_ASSERT_EQUAL_UINT8(0x0B, pn7160configcollection::configs[1].length);
+    TEST_ASSERT_EQUAL_UINT8(0x02, pn7160ConfigCollection::configs[0].length);
+    TEST_ASSERT_EQUAL_UINT8(0x0B, pn7160ConfigCollection::configs[1].length);
 
     uint8_t expectedData0[2] = {0xF4, 0x01};
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData0, pn7160configcollection::configs[0].data, 2);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData0, pn7160ConfigCollection::configs[0].data, 2);
     uint8_t expectedData1[11] = {0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C};
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData1, pn7160configcollection::configs[1].data, 11);
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedData1, pn7160ConfigCollection::configs[1].data, 11);
 }
 
 void test_get_config() {
@@ -39,12 +39,12 @@ void test_get_config() {
 }
 
 void test_set_config() {
-    pn7160configcollection::activeConfig = 0;
+    pn7160ConfigCollection::activeConfig = 0;
     nci::sendSetConfig();
     uint8_t expectedMessage[] = {0x20, 0x02, 0x05, 0x01, 0x00, 0x02, 0xF4, 0x01}; // CORE_SET_CONFIG_CMD for TAG 0 = TOTAL_DURATION = 500
     TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedMessage, nci::txBuffer, 7);
 
-    pn7160configcollection::activeConfig++;
+    pn7160ConfigCollection::activeConfig++;
     nci::sendSetConfig();
     uint8_t expectedMessage2[] = {0x20, 0x02, 0x0F, 0x01, 0xA0, 0x0E, 0x0B, 0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C}; // CORE_SET_CONFIG_CMD for TAG 0xA00E = Power Management Config PMU_CFG
     TEST_ASSERT_EQUAL_UINT8_ARRAY(expectedMessage2, nci::txBuffer, 17);
