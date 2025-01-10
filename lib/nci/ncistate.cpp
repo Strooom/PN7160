@@ -13,7 +13,7 @@ const char* toString(nciState state) {
         case nciState::waitForCoreResetNotification:
             return "waitForCoreResetNotification";
         case nciState::waitForCoreInitResponse:
-            return "waitforCoreInitResponse";
+            return "waitForCoreInitResponse";
         case nciState::waitForGetConfigResponse:
             return "waitForGetConfigResponse";
         case nciState::waitForSetConfigResponse:
@@ -31,7 +31,7 @@ const char* toString(nciState state) {
         case nciState::error:
             return "error";
         case nciState::test:
-            return "Test";
+            return "test";
         default:
             return "unknown nciState";
     }

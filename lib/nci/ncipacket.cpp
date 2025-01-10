@@ -12,7 +12,15 @@ const char* toString(nciMessageId messageId) {
             return "CORE_INIT_CMD";
         case nciMessageId::CORE_INIT_RSP:
             return "CORE_INIT_RSP";
-        case nciMessageId::RF_DISCOVER_CMD:
+        case nciMessageId::CORE_GET_CONFIG_CMD:
+            return "CORE_GET_CONFIG_CMD";
+        case nciMessageId::CORE_GET_CONFIG_RSP:
+            return "CORE_GET_CONFIG_RSP";
+        case nciMessageId::CORE_SET_CONFIG_CMD:
+            return "CORE_SET_CONFIG_CMD";
+        case nciMessageId::CORE_SET_CONFIG_RSP:
+            return "CORE_SET_CONFIG_RSP";
+            case nciMessageId::RF_DISCOVER_CMD:
             return "RF_DISCOVER_CMD";
         case nciMessageId::RF_DISCOVER_RSP:
             return "RF_DISCOVER_RSP";
@@ -22,14 +30,6 @@ const char* toString(nciMessageId messageId) {
             return "RF_INTF_ACTIVATED_NTF";
         case nciMessageId::RF_DEACTIVATE_RSP:
             return "RF_DEACTIVATE_RSP";
-        case nciMessageId::CORE_GET_CONFIG_CMD:
-            return "CORE_GET_CONFIG_CMD";
-        case nciMessageId::CORE_GET_CONFIG_RSP:
-            return "CORE_GET_CONFIG_RSP";
-        case nciMessageId::CORE_SET_CONFIG_CMD:
-            return "CORE_SET_CONFIG_CMD";
-        case nciMessageId::CORE_SET_CONFIG_RSP:
-            return "CORE_SET_CONFIG_RSP";
         default:
             return "Unknown Message";
     }
