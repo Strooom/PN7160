@@ -172,9 +172,9 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Install gcovr 5.0
+      - name: Install gcovr
         run: |
-          pip install gcovr==5.0
+          pip install gcovr
 
       - name: Install sonar-scanner and build-wrapper
         uses: sonarsource/sonarcloud-github-c-cpp@v3
