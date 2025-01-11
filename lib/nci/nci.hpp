@@ -75,7 +75,7 @@ class nci {
     static void readTagData();
 
     static constexpr unsigned long standardResponseTimeout{10U};
-    static constexpr unsigned long noTagDiscoverdTimeout{500U};
+    static constexpr unsigned long noTagDiscoveredTimeout{500U};
     static constexpr uint8_t resetKeepConfig{0};
     static constexpr uint8_t resetClearConfig{0x01};
 

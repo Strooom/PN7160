@@ -4,6 +4,7 @@
 // #############################################################################
 #include <unity.h>
 #include <nci.hpp>
+#include <cstring>
 
 void setUp(void) {        // before each test
 }
@@ -48,8 +49,8 @@ void test_getMessageId() {
     TEST_ASSERT_EQUAL(nciMessageId::CORE_RESET_CMD, nci::getMessageId(msgBuffer0));
     uint8_t msgBuffer1[2] = {0x40, 0x03};
     TEST_ASSERT_EQUAL(nciMessageId::CORE_GET_CONFIG_RSP, nci::getMessageId(msgBuffer1));
-}    
- 
+}
+
 // CORE_RESET_CMD : 20 00 01 00
 // CORE_RESET_RSP : 40 00 01 00
 // CORE_RESET_NTF : 60 00 09 02 00 20 04 04 61 12 50 05
@@ -60,8 +61,8 @@ void test_getMessageId() {
 
 // CORE_GET_CONFIG_RSP : 40 03
 // payload length 06
-// status 00 
-// number of parameter fields 01 
+// status 00
+// number of parameter fields 01
 // tag-value ID 00 = TOTAL_DURATION
 // length 02
 // value E8 03
@@ -114,7 +115,7 @@ void test_getMessageId() {
 
 // nci stateChange from boot (0) to venResetActive (1)
 // nci stateChange from venResetActive (1) to waitForHwReset (2)
-// CORE_RESET_CMD : 20 00 01 00 
+// CORE_RESET_CMD : 20 00 01 00
 // nci stateChange from waitForHwReset (2) to waitForCoreResetResponse (3)
 // CORE_RESET_RSP : 40 00 01 00
 // nci stateChange from waitForCoreResetResponse (3) to waitForCoreResetNotification (4)
@@ -137,7 +138,7 @@ void test_getMessageId() {
 // nci stateChange from waitForRfInterfaceActivatedNotification (9) to error (13)
 // nci stateChange from error (13) to error (13)
 
-// RF_INTF_ACTIVATED_NTF : 61 05 1E 01 02 04 00 FF 01 0D 44 03 07 04 19 65 6A 32 5A 80 01 20 00 00 00 00 06 05 75 77 81 02 80 
+// RF_INTF_ACTIVATED_NTF : 61 05 1E 01 02 04 00 FF 01 0D 44 03 07 04 19 65 6A 32 5A 80 01 20 00 00 00 00 06 05 75 77 81 02 80
 
 void test_initialize() {
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
@@ -153,6 +154,151 @@ void test_reset() {
     TEST_ASSERT_EQUAL(nciState::boot, nci::state);
     TEST_ASSERT_EQUAL(tagStatus::absent, nci::theTagStatus);
 }
+
+void test_sendCoreReset() {
+    nci::reset();
+    nci::sendCoreReset();
+    constexpr uint32_t expectedMessageLength             = 4;
+    const uint8_t expectedMessage[expectedMessageLength] = {0x20, 0x00, 0x01, 0x00};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessageLength);
+}
+
+void test_sendCoreInit() {
+    nci::reset();
+    nci::sendCoreInit();
+    constexpr uint32_t expectedMessageLength             = 5;
+    const uint8_t expectedMessage[expectedMessageLength] = {0x20, 0x01, 0x02, 0x00, 0x00};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessageLength);
+}
+
+void test_sendGetConfig() {
+    nci::reset();
+    nci::sendGetConfig();
+    constexpr uint32_t expectedMessage1Length             = 5;
+    const uint8_t expectedMessage[expectedMessage1Length] = {0x20, 0x03, 0x02, 0x01, 0x00};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessage1Length);
+    pn7160ConfigCollection::activeConfig++;
+    nci::sendGetConfig();
+    constexpr uint32_t expectedMessage2Length              = 6;
+    const uint8_t expectedMessage2[expectedMessage2Length] = {0x20, 0x03, 0x03, 0x01, 0xA0, 0x0E};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage2, nci::txBuffer, expectedMessage2Length);
+}
+
+void test_sendSetConfig() {
+    nci::reset();
+    nci::sendSetConfig();
+    constexpr uint32_t expectedMessage1Length             = 8;
+    const uint8_t expectedMessage[expectedMessage1Length] = {0x20, 0x02, 0x05, 0x01, 0x00, 0x02, 0xF4, 0x01};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessage1Length);
+    pn7160ConfigCollection::activeConfig++;
+    nci::sendSetConfig();
+    constexpr uint32_t expectedMessage2Length              = 18;
+    const uint8_t expectedMessage2[expectedMessage2Length] = {0x20, 0x02, 0x0F, 0x01, 0xA0, 0x0E, 0x0B, 0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage2, nci::txBuffer, expectedMessage2Length);
+}
+
+void test_sendStartDiscover() {
+    nci::reset();
+    nci::sendStartDiscover();
+    constexpr uint32_t expectedMessageLength             = 10;
+    const uint8_t expectedMessage[expectedMessageLength] = {0x21, 0x03, 0x07, 0x03, 0x00, 0x01, 0x01, 0x01, 0x02, 0x01};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessageLength);
+}
+
+void test_sendRfDeactivate() {
+    nci::reset();
+    nci::sendRfDeactivate();
+    constexpr uint32_t expectedMessageLength             = 4;
+    const uint8_t expectedMessage[expectedMessageLength] = {0x21, 0x06, 0x01, 0x00};
+    TEST_ASSERT_EQUAL_INT8_ARRAY(expectedMessage, nci::txBuffer, expectedMessageLength);
+}
+
+void test_configLengthMatches_configDataMatches() {
+    nci::reset();
+    constexpr uint32_t testReceivedMessage1Length                  = 9;
+    const uint8_t testReceivedMessage1[testReceivedMessage1Length] = {0x40, 0x03, 0x06, 0x00, 0x01, 0x00, 0x02, 0xF4, 0x01};
+    nci::rxMessageLength                                           = testReceivedMessage1Length;
+    memcpy(nci::rxBuffer, testReceivedMessage1, testReceivedMessage1Length);
+    TEST_ASSERT_TRUE(nci::configLengthMatches());
+    TEST_ASSERT_TRUE(nci::configDataMatches());
+
+    pn7160ConfigCollection::activeConfig++;
+    constexpr uint32_t testReceivedMessage2Length                  = 19;
+    const uint8_t testReceivedMessage2[testReceivedMessage2Length] = {0x40, 0x03, 0x10, 0x00, 0x01, 0xA0, 0x0E, 0x0B, 0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C};
+    nci::rxMessageLength                                           = testReceivedMessage2Length;
+    memcpy(nci::rxBuffer, testReceivedMessage2, testReceivedMessage2Length);
+    TEST_ASSERT_TRUE(nci::configLengthMatches());
+    TEST_ASSERT_TRUE(nci::configDataMatches());
+}
+
+void test_handleResetResponse() {
+    nci::reset();
+    nci::handleResetResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForCoreResetNotification, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
+
+void test_handleResetNotification() {
+    nci::reset();
+    nci::handleResetNotification();
+    TEST_ASSERT_EQUAL(nciState::waitForCoreInitResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
+
+void test_handleInitResponse() {
+    nci::reset();
+    nci::handleInitResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForGetConfigResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+
+    pn7160ConfigCollection::activeConfig += 2;
+    nci::handleInitResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+}
+
+void test_handleGetConfigResponse() {
+    nci::reset();
+    constexpr uint32_t testReceivedMessage1Length                  = 9;
+    const uint8_t testReceivedMessage1[testReceivedMessage1Length] = {0x40, 0x03, 0x06, 0x00, 0x01, 0x00, 0x02, 0xF4, 0x01};
+    nci::rxMessageLength                                           = testReceivedMessage1Length;
+    memcpy(nci::rxBuffer, testReceivedMessage1, testReceivedMessage1Length);
+    nci::handleGetConfigResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForGetConfigResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+
+    constexpr uint32_t testReceivedMessage2Length                  = 19;
+    const uint8_t testReceivedMessage2[testReceivedMessage2Length] = {0x40, 0x03, 0x10, 0x00, 0x01, 0xA0, 0x0E, 0x0B, 0x11, 0x01, 0xC1, 0xB1, 0x00, 0xDA, 0x1E, 0x14, 0x00, 0xD0, 0x0C};
+    nci::rxMessageLength                                           = testReceivedMessage2Length;
+    memcpy(nci::rxBuffer, testReceivedMessage2, testReceivedMessage2Length);
+    nci::handleGetConfigResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+
+    nci::reset();
+    nci::handleGetConfigResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForSetConfigResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
+
+void test_handleSetConfigResponse() {
+    nci::reset();
+    nci::handleSetConfigResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForGetConfigResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+    pn7160ConfigCollection::activeConfig = 2;
+    nci::handleSetConfigResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+}
+
+void test_handleRfDeactivationResponse() {}
+void test_handleRfDeactivationNotification() {}
+void test_handleRfDiscoverResponse() {}
+void test_handleRfInterfaceActivatedNotification() {}
 
 void test_check_status() {
     TEST_ASSERT_TRUE(nci::checkMessageStatus(0x00));
@@ -247,7 +393,6 @@ void test_dummy() {
     nci::getMessageId(nci::rxBuffer);
     nci::handleUnexpectedMessage();
     nci::handleNoResponseTimeout();
-    
 }
 
 int main(int argc, char **argv) {
@@ -258,6 +403,19 @@ int main(int argc, char **argv) {
     RUN_TEST(test_getMessageId);
     RUN_TEST(test_initialize);
     RUN_TEST(test_reset);
+    RUN_TEST(test_sendCoreReset);
+    RUN_TEST(test_sendCoreInit);
+    RUN_TEST(test_sendGetConfig);
+    RUN_TEST(test_sendSetConfig);
+    RUN_TEST(test_sendStartDiscover);
+    RUN_TEST(test_sendRfDeactivate);
+    RUN_TEST(test_configLengthMatches_configDataMatches);
+    RUN_TEST(test_handleResetResponse);
+    RUN_TEST(test_handleResetNotification);
+    RUN_TEST(test_handleInitResponse);
+    RUN_TEST(test_handleGetConfigResponse);
+    RUN_TEST(test_handleSetConfigResponse);
+
     RUN_TEST(test_check_status);
     RUN_TEST(test_state_machine);
     RUN_TEST(test_state_machine_timeouts);

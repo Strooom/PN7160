@@ -16,6 +16,9 @@ tag nci::tagData;
 void nci::reset() {
     moveState(nciState::boot);
     theTagStatus = tagStatus::absent;
+    responseTimeoutTimer.stop();
+    noTagFoundTimoutTimer.stop();
+    pn7160ConfigCollection::activeConfig = 0;
 }
 
 void nci::run() {
@@ -103,7 +106,7 @@ void nci::run() {
             if (responseTimeoutTimer.isExpired()) {
                 sendStartDiscover();
                 responseTimeoutTimer.start(standardResponseTimeout);
-                noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
+                noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
                 moveState(nciState::waitForDiscoverResponse);
             }
             break;
@@ -143,7 +146,7 @@ void nci::handleInitResponse() {
     if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
-        noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
+        noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
         moveState(nciState::waitForDiscoverResponse);
     } else {
         sendGetConfig();
@@ -173,7 +176,7 @@ void nci::handleGetConfigResponse() {
         if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
             sendStartDiscover();
             responseTimeoutTimer.start(standardResponseTimeout);
-            noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
+            noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
             moveState(nciState::waitForDiscoverResponse);
         } else {
             sendGetConfig();
@@ -260,7 +263,7 @@ void nci::handleSetConfigResponse() {
     if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
-        noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
+        noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
         moveState(nciState::waitForDiscoverResponse);
     } else {
         sendGetConfig();
