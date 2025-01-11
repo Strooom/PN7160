@@ -13,6 +13,11 @@ singleShotTimer nci::noTagFoundTimoutTimer;
 tagStatus nci::theTagStatus{tagStatus::absent};
 tag nci::tagData;
 
+void nci::reset() {
+    moveState(nciState::boot);
+    theTagStatus = tagStatus::absent;
+}
+
 void nci::run() {
     switch (state) {
         case nciState::boot:
@@ -169,7 +174,6 @@ void nci::handleGetConfigResponse() {
             sendStartDiscover();
             responseTimeoutTimer.start(standardResponseTimeout);
             noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
-
             moveState(nciState::waitForDiscoverResponse);
         } else {
             sendGetConfig();
@@ -181,148 +185,6 @@ void nci::handleGetConfigResponse() {
         responseTimeoutTimer.start(standardResponseTimeout);
         moveState(nciState::waitForSetConfigResponse);
     }
-}
-
-void nci::handleSetConfigResponse() {
-    pn7160ConfigCollection::activeConfig++;
-    if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
-        sendStartDiscover();
-        responseTimeoutTimer.start(standardResponseTimeout);
-        noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
-        moveState(nciState::waitForDiscoverResponse);
-    } else {
-        sendGetConfig();
-        responseTimeoutTimer.start(standardResponseTimeout);
-        moveState(nciState::waitForGetConfigResponse);
-    }
-}
-
-void nci::handleRfDiscoverResponse() {
-    responseTimeoutTimer.stop();
-    moveState(nciState::waitForRfInterfaceActivatedNotification);
-}
-
-void nci::handleRfInterfaceActivatedNotification() {
-    logging::snprintf("tag detected...\n");
-    radTagData();
-    sendRfDeactivate();
-    responseTimeoutTimer.start(standardResponseTimeout);
-    moveState(nciState::waitForRfDeactivateResponse);
-}
-
-void nci::handleRfDeactivationResponse() {
-    responseTimeoutTimer.start(standardResponseTimeout);
-    moveState(nciState::waitForRfDeactivateNotification);
-}
-
-void nci::handleRfDeactivationNotification() {
-    responseTimeoutTimer.start(500U);
-    moveState(nciState::waitForRestartDiscovery);
-}
-
-void nci::unexpectedMessageError() {
-    logging::snprintf(logging::source::criticalError, "unexpected NCI message %s : ", toString(getMessageId(rxBuffer)));
-    dumpRawMessage(rxBuffer, rxMessageLength);
-    moveState(nciState::error);
-}
-
-void nci::sendStartDiscover() {
-    static constexpr uint32_t payloadLength{7};
-    uint8_t payloadData[payloadLength] = {3, 0, 1, 1, 1, 2, 1};
-    sendNciMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DISCOVER_CMD, payloadData, payloadLength);
-}
-
-nciState nci::getState() {
-    return state;
-}
-
-tagStatus nci::getTagStatus() {
-    tagStatus result{theTagStatus};
-    switch (theTagStatus) {
-        case tagStatus::foundNew:
-            theTagStatus = tagStatus::old;
-            break;
-        case tagStatus::removed:
-            theTagStatus = tagStatus::absent;
-            break;
-
-        default:
-            break;
-    }
-    return result;
-}
-
-void nci::sendNciMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[], const uint8_t thePayloadLength) {
-    uint8_t payloadLength;
-    if (payloadData == nullptr) {
-        payloadLength = 0;
-    } else {
-        payloadLength = thePayloadLength;
-    }
-
-    txBuffer[0] = (static_cast<uint8_t>(theMessageType) | static_cast<uint8_t>(groupId)) & 0xEF;        // put messageType and groupId in first byte, Packet Boundary Flag is always 0
-    txBuffer[1] = static_cast<uint8_t>(opcodeId) & 0x3F;                                                // put opcodeId in second byte, clear Reserved for Future Use (RFU) bits
-    txBuffer[2] = payloadLength;                                                                        // payloadLength goes in third byte
-
-    for (uint32_t index = 0; index < payloadLength; index++) {
-        txBuffer[index + 3] = payloadData[index];
-    }
-
-    if (!PN7160Interface::wakeUp()) {
-        logging::snprintf(logging::source::criticalError, "PN7160 wakeUp for sendNciMessage failed\n");
-    }
-    PN7160Interface::write(txBuffer, 3 + payloadLength);
-    if (logging::isActive(logging::source::nciMessages)) {
-        logging::snprintf("%s : ", toString(getMessageId(txBuffer)));
-        dumpRawMessage(txBuffer, 3 + payloadLength);
-    }
-}
-
-void nci::getMessage() {
-    if (!PN7160Interface::wakeUp()) {
-        logging::snprintf(logging::source::criticalError, "PN7160 wakeUp for receiveMessage failed\n");
-    }
-    rxMessageLength = PN7160Interface::read(rxBuffer);
-    if (logging::isActive(logging::source::nciMessages)) {
-        logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
-        dumpRawMessage(rxBuffer, rxMessageLength);
-    }
-}
-
-bool nci::checkMessageLength(const uint8_t expectedLength) {
-    return (expectedLength == rxMessageLength);
-}
-
-messageType nci::getMessageType(const uint8_t msgBuffer[]) {
-    return static_cast<messageType>(msgBuffer[0] & 0xE0);
-}
-
-groupIdentifier nci::getGroupIdentifier(const uint8_t msgBuffer[]) {
-    return static_cast<groupIdentifier>(msgBuffer[0] & 0x0F);
-}
-
-opcodeIdentifier nci::getOpcodeIdentifier(const uint8_t msgBuffer[]) {
-    return static_cast<opcodeIdentifier>(msgBuffer[1] & 0x3F);
-}
-
-nciMessageId nci::getMessageId(const uint8_t msgBuffer[]) {
-    uint16_t messageType    = static_cast<uint16_t>(msgBuffer[0]) & 0x00E0;
-    uint16_t groupId        = static_cast<uint16_t>(msgBuffer[0]) & 0x000F;
-    uint16_t firstBytes     = static_cast<uint16_t>((messageType | groupId) << 8U);
-    uint16_t opcodeId       = static_cast<uint16_t>(msgBuffer[1]) & 0x003F;
-    uint16_t messageIdValue = static_cast<uint16_t>(firstBytes | opcodeId);
-    return static_cast<nciMessageId>(messageIdValue);
-}
-
-bool nci::checkMessageStatus(const uint8_t receivedStatus) {
-    return (receivedStatus == static_cast<uint8_t>(nciStatus::ok));
-}
-
-void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
-    for (uint32_t index = 0; index < length; index++) {
-        logging::snprintf("%02X ", msgBuffer[index]);
-    }
-    logging::snprintf("\n");
 }
 
 bool nci::configLengthMatches() {
@@ -393,7 +255,40 @@ void nci::sendSetConfig() {
     sendNciMessage(messageType::Command, groupIdentifier::Core, opcodeIdentifier::CORE_SET_CONFIG_CMD, configPayload, payloadLength);
 }
 
-void nci::radTagData() {
+void nci::handleSetConfigResponse() {
+    pn7160ConfigCollection::activeConfig++;
+    if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
+        sendStartDiscover();
+        responseTimeoutTimer.start(standardResponseTimeout);
+        noTagFoundTimoutTimer.start(noTagDiscoverdTimeout);
+        moveState(nciState::waitForDiscoverResponse);
+    } else {
+        sendGetConfig();
+        responseTimeoutTimer.start(standardResponseTimeout);
+        moveState(nciState::waitForGetConfigResponse);
+    }
+}
+
+void nci::sendStartDiscover() {
+    static constexpr uint32_t payloadLength{7};
+    uint8_t payloadData[payloadLength] = {3, 0, 1, 1, 1, 2, 1};
+    sendNciMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DISCOVER_CMD, payloadData, payloadLength);
+}
+
+void nci::handleRfDiscoverResponse() {
+    responseTimeoutTimer.stop();
+    moveState(nciState::waitForRfInterfaceActivatedNotification);
+}
+
+void nci::handleRfInterfaceActivatedNotification() {
+    logging::snprintf("tag detected...\n");
+    readTagData();
+    sendRfDeactivate();
+    responseTimeoutTimer.start(standardResponseTimeout);
+    moveState(nciState::waitForRfDeactivateResponse);
+}
+
+void nci::readTagData() {
     tag receivedTag;
     static constexpr uint8_t byeOffset{12};
     receivedTag.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
@@ -405,16 +300,110 @@ void nci::radTagData() {
     }
 }
 
+void nci::sendRfDeactivate() {
+    static constexpr uint32_t payloadLength{1};
+    uint8_t payloadData[payloadLength] = {0};        // Idle mode
+    sendNciMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DEACTIVATE_CMD, payloadData, payloadLength);
+}
+
+void nci::handleRfDeactivationResponse() {
+    responseTimeoutTimer.start(standardResponseTimeout);
+    moveState(nciState::waitForRfDeactivateNotification);
+}
+
+void nci::handleRfDeactivationNotification() {
+    responseTimeoutTimer.start(500U);
+    moveState(nciState::waitForRestartDiscovery);
+}
+
+nciState nci::getState() {
+    return state;
+}
+
+tagStatus nci::getTagStatus() {
+    tagStatus result{theTagStatus};
+    switch (theTagStatus) {
+        case tagStatus::foundNew:
+            theTagStatus = tagStatus::old;
+            break;
+        case tagStatus::removed:
+            theTagStatus = tagStatus::absent;
+            break;
+
+        default:
+            break;
+    }
+    return result;
+}
+
+void nci::moveState(nciState newState) {
+    logging::snprintf(logging::source::stateChanges, "nci stateChange from %s (%d) to %s (%d)\n", toString(state), state, toString(newState), newState);
+    state = newState;
+}
+
+void nci::sendNciMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[], const uint8_t thePayloadLength) {
+    uint8_t payloadLength;
+    if (payloadData == nullptr) {
+        payloadLength = 0;
+    } else {
+        payloadLength = thePayloadLength;
+    }
+
+    txBuffer[0] = (static_cast<uint8_t>(theMessageType) | static_cast<uint8_t>(groupId)) & 0xEF;        // put messageType and groupId in first byte, Packet Boundary Flag is always 0
+    txBuffer[1] = static_cast<uint8_t>(opcodeId) & 0x3F;                                                // put opcodeId in second byte, clear Reserved for Future Use (RFU) bits
+    txBuffer[2] = payloadLength;                                                                        // payloadLength goes in third byte
+
+    for (uint32_t index = 0; index < payloadLength; index++) {
+        txBuffer[index + 3] = payloadData[index];
+    }
+
+    if (!PN7160Interface::wakeUp()) {
+        logging::snprintf(logging::source::criticalError, "PN7160 wakeUp for sendNciMessage failed\n");
+    }
+    PN7160Interface::write(txBuffer, 3 + payloadLength);
+    if (logging::isActive(logging::source::nciMessages)) {
+        logging::snprintf("%s : ", toString(getMessageId(txBuffer)));
+        dumpRawMessage(txBuffer, 3 + payloadLength);
+    }
+}
+
 void nci::handleNciMessage(nciMessageId expectedMessageId, void (*handler)()) {
     if (PN7160Interface::hasMessage()) {
         getMessage();
         if (getMessageId(rxBuffer) == expectedMessageId) {
             handler();
         } else {
-            unexpectedMessageError();
+            handleUnexpectedMessage();
             moveState(nciState::error);
         }
     }
+}
+
+void nci::getMessage() {
+    if (!PN7160Interface::wakeUp()) {
+        logging::snprintf(logging::source::criticalError, "PN7160 wakeUp for receiveMessage failed\n");
+    }
+    rxMessageLength = PN7160Interface::read(rxBuffer);
+    if (logging::isActive(logging::source::nciMessages)) {
+        logging::snprintf("%s : ", toString(getMessageId(rxBuffer)));
+        dumpRawMessage(rxBuffer, rxMessageLength);
+    }
+}
+
+nciMessageId nci::getMessageId(const uint8_t msgBuffer[]) {
+    uint16_t messageType    = static_cast<uint16_t>(msgBuffer[0]) & 0x00E0;
+    uint16_t groupId        = static_cast<uint16_t>(msgBuffer[0]) & 0x000F;
+    uint16_t firstBytes     = static_cast<uint16_t>((messageType | groupId) << 8U);
+    uint16_t opcodeId       = static_cast<uint16_t>(msgBuffer[1]) & 0x003F;
+    uint16_t messageIdValue = static_cast<uint16_t>(firstBytes | opcodeId);
+    return static_cast<nciMessageId>(messageIdValue);
+}
+
+void nci::dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length) {
+    for (uint32_t index = 0; index < length; index++) {
+        logging::snprintf("%02X ", msgBuffer[index]);
+    }
+    logging::snprintf("\n");
 }
 
 void nci::handleNoResponseTimeout() {
@@ -424,18 +413,31 @@ void nci::handleNoResponseTimeout() {
     }
 }
 
-void nci::reset() {
-    moveState(nciState::boot);
-    theTagStatus = tagStatus::absent;
+void nci::handleUnexpectedMessage() {
+    logging::snprintf(logging::source::criticalError, "unexpected NCI message %s : ", toString(getMessageId(rxBuffer)));
+    dumpRawMessage(rxBuffer, rxMessageLength);
+    moveState(nciState::error);
 }
 
-void nci::sendRfDeactivate() {
-    static constexpr uint32_t payloadLength{1};
-    uint8_t payloadData[payloadLength] = {0};        // Idle mode
-    sendNciMessage(messageType::Command, groupIdentifier::RfManagement, opcodeIdentifier::RF_DEACTIVATE_CMD, payloadData, payloadLength);
+bool nci::checkMessageStatus(const uint8_t receivedStatus) {
+    return (receivedStatus == static_cast<uint8_t>(nciStatus::ok));
 }
 
-void nci::moveState(nciState newState) {
-    logging::snprintf(logging::source::stateChanges, "nci stateChange from %s (%d) to %s (%d)\n", toString(state), state, toString(newState), newState);
-    state = newState;
+bool nci::checkMessageLength(const uint8_t expectedLength) {
+    return (expectedLength == rxMessageLength);
 }
+
+messageType nci::getMessageType(const uint8_t msgBuffer[]) {
+    return static_cast<messageType>(msgBuffer[0] & 0xE0);
+}
+
+groupIdentifier nci::getGroupIdentifier(const uint8_t msgBuffer[]) {
+    return static_cast<groupIdentifier>(msgBuffer[0] & 0x0F);
+}
+
+opcodeIdentifier nci::getOpcodeIdentifier(const uint8_t msgBuffer[]) {
+    return static_cast<opcodeIdentifier>(msgBuffer[1] & 0x3F);
+}
+
+
+

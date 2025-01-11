@@ -20,8 +20,8 @@
 
 class nci {
   public:
-    static void run();
     static void reset();
+    static void run();
 
     static nciState getState();
     static tagStatus getTagStatus();
@@ -72,7 +72,7 @@ class nci {
 
     static constexpr unsigned long scanPeriod{500};
     static constexpr unsigned long waitForReDiscoverTimeout{500};
-    static void radTagData();
+    static void readTagData();
 
     static constexpr unsigned long standardResponseTimeout{10U};
     static constexpr unsigned long noTagDiscoverdTimeout{500U};
@@ -84,7 +84,7 @@ class nci {
     static void sendRfDeactivate();
 
     static void handleNoResponseTimeout();
-    static void unexpectedMessageError();
+    static void handleUnexpectedMessage();
 
     static messageType getMessageType(const uint8_t msgBuffer[]);
     static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
