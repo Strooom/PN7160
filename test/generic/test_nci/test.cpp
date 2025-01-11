@@ -295,10 +295,32 @@ void test_handleSetConfigResponse() {
     TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
 }
 
-void test_handleRfDeactivationResponse() {}
-void test_handleRfDeactivationNotification() {}
-void test_handleRfDiscoverResponse() {}
-void test_handleRfInterfaceActivatedNotification() {}
+void test_handleRfDeactivationResponse() {
+    nci::reset();
+    nci::handleRfDeactivationResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForRfDeactivateNotification, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
+void test_handleRfDeactivationNotification() {
+    nci::reset();
+    nci::handleRfDeactivationNotification();
+    TEST_ASSERT_EQUAL(nciState::waitForRestartDiscovery, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
+
+void test_handleRfDiscoverResponse() {
+    nci::reset();
+    nci::handleRfDiscoverResponse();
+    TEST_ASSERT_EQUAL(nciState::waitForRfInterfaceActivatedNotification, nci::getState());
+    TEST_ASSERT_FALSE(nci::responseTimeoutTimer.isRunning());
+}
+
+void test_handleRfInterfaceActivatedNotification() {
+    nci::reset();
+    nci::handleRfInterfaceActivatedNotification();
+    TEST_ASSERT_EQUAL(nciState::waitForRfDeactivateResponse, nci::getState());
+    TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
+}
 
 void test_check_status() {
     TEST_ASSERT_TRUE(nci::checkMessageStatus(0x00));
@@ -415,6 +437,10 @@ int main(int argc, char **argv) {
     RUN_TEST(test_handleInitResponse);
     RUN_TEST(test_handleGetConfigResponse);
     RUN_TEST(test_handleSetConfigResponse);
+    RUN_TEST(test_handleRfDeactivationResponse);
+    RUN_TEST(test_handleRfDeactivationNotification);
+    RUN_TEST(test_handleRfDiscoverResponse);
+    RUN_TEST(test_handleRfInterfaceActivatedNotification);
 
     RUN_TEST(test_check_status);
     RUN_TEST(test_state_machine);
