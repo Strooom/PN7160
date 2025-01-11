@@ -245,7 +245,8 @@ void test_dummy() {
     nci::getGroupIdentifier(nci::rxBuffer);
     nci::getOpcodeIdentifier(nci::rxBuffer);
     nci::getMessageId(nci::rxBuffer);
-    nci::unexpectedMessageError();
+    nci::handleUnexpectedMessage();
+    nci::handleNoResponseTimeout();
     
 }
 
