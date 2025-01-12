@@ -1,7 +1,7 @@
 #include "version.hpp"
 #include "buildinfo.hpp"
 #include <stdio.h>
-#include "logging.hpp"
+#include "../logging/logging.hpp"
 
 uint8_t version::isVersionMajor{0};
 uint8_t version::isVersionMinor{0};

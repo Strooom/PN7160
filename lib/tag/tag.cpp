@@ -9,7 +9,7 @@
 // #############################################################################
 
 #include "tag.hpp"
-#include "logging.hpp"
+#include "../logging/logging.hpp"
 
 const char* toString(tagStatus status) {
     switch (status) {

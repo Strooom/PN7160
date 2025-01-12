@@ -11,12 +11,12 @@
 // #############################################################################
 
 #include <stdint.h>
-#include "tag.hpp"
-#include "pn7160interface.hpp"
+#include "../tag/tag.hpp"
+#include "../pn7160interface/pn7160interface.hpp"
 #include "ncistate.hpp"
 #include "ncipacket.hpp"
-#include "singletimer.hpp"
-#include "pn7160configcollection.hpp"
+#include "../timer/singletimer.hpp"
+#include "../pn7160config/pn7160configcollection.hpp"
 
 class nci {
   public:
