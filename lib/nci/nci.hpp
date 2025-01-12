@@ -16,26 +16,16 @@
 #include <ncistate.hpp>
 #include <ncipacket.hpp>
 #include <singletimer.hpp>
+#include <pn7160configcollection.hpp>
 
 class nci {
   public:
-    static void startDiscover1();
-    static void startDiscover2();
-
-    static void run();
     static void reset();
+    static void run();
 
     static nciState getState();
     static tagStatus getTagStatus();
     static tag tagData;
-
-    static bool checkMessageType(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId);
-    static messageType getMessageType(const uint8_t msgBuffer[]);
-    static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
-    static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
-    static nciMessageId getMessageId(const uint8_t msgBuffer[]);
-
-    static void dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length);
 
 #ifndef unitTesting
   private:
@@ -45,7 +35,7 @@ class nci {
     static void moveState(nciState newState);
 
     static singleShotTimer responseTimeoutTimer;
-    static singleShotTimer noTagFoundTimoutTimer;
+    static singleShotTimer noTagFoundTimeoutTimer;
 
     static tagStatus theTagStatus;
 
@@ -56,28 +46,49 @@ class nci {
     static uint32_t rxMessageLength;
     static uint8_t txBuffer[maxPayloadSize + msgHeaderSize];
 
-    static void sendMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[] = nullptr, const uint8_t payloadLength = 0);
+    static void sendNciMessage(const messageType theMessageType, const groupIdentifier groupId, const opcodeIdentifier opcodeId, const uint8_t payloadData[] = nullptr, const uint8_t payloadLength = 0);
     static void getMessage();
     static bool checkMessageLength(const uint8_t expectedLength);
     static bool checkMessageStatus(const uint8_t receivedStatus);
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, void (*callOnMatch)());
-    static void waitForMessage(nciMessageId expectedMessageId, nciState nextState, unsigned long timeout);
-    static void waitForTag();
-    static void configure();
-    static void timeoutError();
-    static void unexpectedMessageError();
+
+    static void handleNciMessage(nciMessageId expectedMessageId, void (*handler)());
+
+    static void handleResetResponse();
+    static void handleResetNotification();
+    static void handleInitResponse();
+    static void handleGetConfigResponse();
+    static void handleSetConfigResponse();
+    static void handleRfDiscoverResponse();
+    static void handleRfInterfaceActivatedNotification();
+    static void handleRfDeactivationResponse();
+    static void handleRfDeactivationNotification();
+
+    static void sendGetConfig();
+    static void sendSetConfig();
+    static void sendStartDiscover();
+
+    static bool configLengthMatches();
+    static bool configDataMatches();
 
     static constexpr unsigned long scanPeriod{500};
     static constexpr unsigned long waitForReDiscoverTimeout{500};
-    static void updateTag();
+    static void readTagData();
 
     static constexpr unsigned long standardResponseTimeout{10U};
-    static constexpr unsigned long noTagDiscoverdTimeout{500U};
+    static constexpr unsigned long noTagDiscoveredTimeout{500U};
     static constexpr uint8_t resetKeepConfig{0};
     static constexpr uint8_t resetClearConfig{0x01};
 
     static void sendCoreReset();
-    static void waitForCoreReset();
     static void sendCoreInit();
-    static void sendDeactivate();
+    static void sendRfDeactivate();
+
+    static void handleNoResponseTimeout();
+    static void handleUnexpectedMessage();
+
+    static messageType getMessageType(const uint8_t msgBuffer[]);
+    static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
+    static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
+    static nciMessageId getMessageId(const uint8_t msgBuffer[]);
+    static void dumpRawMessage(const uint8_t msgBuffer[], const uint32_t length);
 };

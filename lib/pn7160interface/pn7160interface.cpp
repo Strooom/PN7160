@@ -8,13 +8,17 @@
 // ###                                                                       ###
 // #############################################################################
 
-#include "pn7160interface.hpp"
+#include <pn7160interface.hpp>
 
 #ifndef generic
 #include <Arduino.h>
 #include <i2c_t3.h>
 #else
+#include <cstring>
 bool PN7160Interface::mockIrqPin{false};
+bool PN7160Interface::mockWakeUp{true};
+uint8_t PN7160Interface::mockMessageData[255]{};
+
 #endif
 
 uint8_t PN7160Interface::IRQpin{};
@@ -41,16 +45,18 @@ void PN7160Interface::setVenPin(bool highOrLow) {
 }
 
 bool PN7160Interface::wakeUp() {
-    for (uint8_t tryCounter = 0; tryCounter < i2cRetries; tryCounter++) {
 #ifndef generic
+    for (uint8_t tryCounter = 0; tryCounter < i2cRetries; tryCounter++) {
         Wire.beginTransmission(I2Caddress);
         if (Wire.endTransmission() == 0) {
             return true;
         }
         delay(i2cRetryTimout);
-#endif
     }
     return false;
+#else
+    return mockWakeUp;
+#endif
 }
 
 bool PN7160Interface::hasMessage() {
@@ -68,6 +74,9 @@ uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBuffer
     Wire.beginTransmission(I2Caddress);
     nmbrBytesWritten = Wire.write(txBuffer, txBufferLevel);
     resultCode       = Wire.endTransmission();
+#else
+    memcpy(mockMessageData, txBuffer, txBufferLevel);
+    nmbrBytesWritten = txBufferLevel;
 #endif
     if ((nmbrBytesWritten != txBufferLevel) || (resultCode != 0)) {
         return i2cError;
@@ -78,8 +87,8 @@ uint8_t PN7160Interface::write(const uint8_t txBuffer[], const uint32_t txBuffer
 
 uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
     uint32_t bytesReceived{0};
-#ifndef generic
     if (hasMessage()) {
+#ifndef generic
         bytesReceived         = Wire.requestFrom((int)I2Caddress, 3);        // first reading the header, as this contains how long the payload will be
         rxBuffer[0]           = static_cast<uint8_t>(Wire.read());
         rxBuffer[1]           = static_cast<uint8_t>(Wire.read());
@@ -93,9 +102,10 @@ uint32_t PN7160Interface::read(uint8_t rxBuffer[]) {
                 index++;
             }
         }
-    } else {
-        bytesReceived = 0;
-    }
+#else
+        bytesReceived = 3 + mockMessageData[2];
+        memcpy(rxBuffer, mockMessageData, bytesReceived);
 #endif
+    }
     return bytesReceived;
 }

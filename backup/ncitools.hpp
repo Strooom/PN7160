@@ -15,22 +15,22 @@
 
 class nciDecoder {
   public:
-    static void raw(const uint8_t msgBuffer[], const uint8_t length) ;
-    static void decode(const uint8_t msgBuffer[], const uint8_t length, const bool fullDecode = false) ;
+    static void raw(const uint8_t msgBuffer[], const uint8_t length);
+    static void decode(const uint8_t msgBuffer[], const uint8_t length, const bool fullDecode = false);
 
-  private:
+    static bool isMessageType(messageType toBeMessageType);
+    static bool isGroupIdentifier(groupIdentifier toBeGroupID);
+    static bool isOpcodeIdentifier(opcodeIdentifier toBeOpCode);
+    static bool isMessage(messageType toBeMessageType, groupIdentifier toBeGroupID, opcodeIdentifier toBeOpCode);
 
-static bool isMessageType(messageType toBeMessageType);
-static bool isGroupIdentifier(groupIdentifier toBeGroupID);
-static bool isOpcodeIdentifier(opcodeIdentifier toBeOpCode);
-static bool isMessage(messageType toBeMessageType, groupIdentifier toBeGroupID, opcodeIdentifier toBeOpCode);
+    static messageType theMessageType;
+    static groupIdentifier groupID;
+    static opcodeIdentifier opCode;
+    static nciMessageId messageId;
 
-static messageType theMessageType;
-static groupIdentifier groupID;
-static opcodeIdentifier opCode;
-static nciMessageId messageId;
-
-static void getMessageType(const uint8_t msgBuffer[]);
-static void getGroupIdentifier(const uint8_t msgBuffer[]);
-static void getOpcodeIdentifier(const uint8_t msgBuffer[]);
+    static messageType getMessageType(const uint8_t msgBuffer[]);
+    static groupIdentifier getGroupIdentifier(const uint8_t msgBuffer[]);
+    static opcodeIdentifier getOpcodeIdentifier(const uint8_t msgBuffer[]);
+    static nciMessageId getMessageId(const uint8_t msgBuffer[]);
+    static int8_t getLength(const uint8_t msgBuffer[]);
 };
