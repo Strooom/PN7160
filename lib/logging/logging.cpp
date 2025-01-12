@@ -47,7 +47,7 @@ uint32_t logging::snprintf(source aSource, const char *format, ...) {
 }
 
 void logging::write(uint32_t dataLength) {
-    if (isActive(destination::uart1)) {
+    if (isActive(destination::destUart1)) {
 #ifndef generic
         Serial.write(buffer, dataLength);
 #endif
@@ -94,7 +94,7 @@ const char *toString(logging::source aSource) {
 
 const char *toString(logging::destination aDestination) {
     switch (aDestination) {
-        case logging::destination::uart1:
+        case logging::destination::destUart1:
             return "uart1";
         default:
             return "unknown";
