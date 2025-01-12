@@ -5,12 +5,21 @@
 
 #ifdef PN7160_RP2040
 #include <Wire.h>
+#define I2C_SDA_PIN 20
+#define I2C_SCL_PIN 21
+#define IRQ_PIN 16
+#define VEN_PIN 17
 #else
 #include <i2c_t3.h>
+#define I2C_SDA_PIN 18
+#define I2C_SCL_PIN 19
+#define IRQ_PIN 2
+#define VEN_PIN 3
 #endif
 
 void setup() {
     logging::initialize();
+    logging::enable(logging::destination::destUart1);
 
     #ifdef PN7160_RP2040
     delay(1000); // delay required to get debug serial ready
@@ -22,11 +31,11 @@ void setup() {
     logging::enable(logging::source::tagEvents);
     Serial.println("PN7160 driver demo");        // This line is only needed to make the cloud-build work : https://forum.pjrc.com/index.php?threads/undefined-reference-to-_write.71420/
 
-    Wire.setSDA(20);
-    Wire.setSCL(21);
+    Wire.setSDA(I2C_SDA_PIN);
+    Wire.setSCL(I2C_SCL_PIN);
     Wire.begin();
 
-    PN7160Interface::initialize(2, 3, 0x28);
+    PN7160Interface::initialize(IRQ_PIN, VEN_PIN, 0x28);
 }
 
 void loop() {
