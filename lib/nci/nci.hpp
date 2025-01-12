@@ -35,7 +35,7 @@ class nci {
     static void moveState(nciState newState);
 
     static singleShotTimer responseTimeoutTimer;
-    static singleShotTimer noTagFoundTimoutTimer;
+    static singleShotTimer noTagFoundTimeoutTimer;
 
     static tagStatus theTagStatus;
 

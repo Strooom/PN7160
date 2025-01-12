@@ -9,7 +9,7 @@ uint8_t nci::rxBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 uint32_t nci::rxMessageLength;
 uint8_t nci::txBuffer[nci::maxPayloadSize + nci::msgHeaderSize];
 singleShotTimer nci::responseTimeoutTimer;
-singleShotTimer nci::noTagFoundTimoutTimer;
+singleShotTimer nci::noTagFoundTimeoutTimer;
 tagStatus nci::theTagStatus{tagStatus::absent};
 tag nci::tagData;
 
@@ -17,7 +17,7 @@ void nci::reset() {
     moveState(nciState::boot);
     theTagStatus = tagStatus::absent;
     responseTimeoutTimer.stop();
-    noTagFoundTimoutTimer.stop();
+    noTagFoundTimeoutTimer.stop();
     pn7160ConfigCollection::activeConfig = 0;
 }
 
@@ -78,7 +78,7 @@ void nci::run() {
 
         case nciState::waitForRfInterfaceActivatedNotification:
             handleNciMessage(nciMessageId::RF_INTF_ACTIVATED_NTF, handleRfInterfaceActivatedNotification);
-            if (noTagFoundTimoutTimer.isExpired()) {
+            if (noTagFoundTimeoutTimer.isExpired()) {
                 switch (theTagStatus) {
                     case tagStatus::foundNew:
                     case tagStatus::old:
@@ -106,7 +106,7 @@ void nci::run() {
             if (responseTimeoutTimer.isExpired()) {
                 sendStartDiscover();
                 responseTimeoutTimer.start(standardResponseTimeout);
-                noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
+                noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
                 moveState(nciState::waitForDiscoverResponse);
             }
             break;
@@ -146,7 +146,7 @@ void nci::handleInitResponse() {
     if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
-        noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
+        noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
         moveState(nciState::waitForDiscoverResponse);
     } else {
         sendGetConfig();
@@ -176,7 +176,7 @@ void nci::handleGetConfigResponse() {
         if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
             sendStartDiscover();
             responseTimeoutTimer.start(standardResponseTimeout);
-            noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
+            noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
             moveState(nciState::waitForDiscoverResponse);
         } else {
             sendGetConfig();
@@ -263,7 +263,7 @@ void nci::handleSetConfigResponse() {
     if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
         sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
-        noTagFoundTimoutTimer.start(noTagDiscoveredTimeout);
+        noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
         moveState(nciState::waitForDiscoverResponse);
     } else {
         sendGetConfig();
@@ -284,7 +284,6 @@ void nci::handleRfDiscoverResponse() {
 }
 
 void nci::handleRfInterfaceActivatedNotification() {
-    logging::snprintf("tag detected...\n");
     readTagData();
     sendRfDeactivate();
     responseTimeoutTimer.start(standardResponseTimeout);
