@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdarg>
-#include <logging.hpp>
+#include "logging.hpp"
 #ifndef generic
 #include <Arduino.h>
 #endif

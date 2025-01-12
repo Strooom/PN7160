@@ -1,4 +1,4 @@
-#include <intervaltimer.hpp>
+#include "intervaltimer.hpp"
 #ifndef generic
 #include <Arduino.h>
 #else

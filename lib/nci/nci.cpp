@@ -1,7 +1,7 @@
-#include <nci.hpp>
-#include <logging.hpp>
-#include <pn7160interface.hpp>
-#include <pn7160configcollection.hpp>
+#include "nci.hpp"
+#include "logging.hpp"
+#include "pn7160interface.hpp"
+#include "pn7160configcollection.hpp"
 #include <cstring>
 
 nciState nci::state{nciState::boot};
