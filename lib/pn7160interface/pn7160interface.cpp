@@ -13,7 +13,7 @@
 #ifndef generic
 #include <Arduino.h>
 
-#ifdef PN7160_USE_WIRE
+#ifdef PN7160_RP2040
 #include <Wire.h>
 #else
 #include <i2c_t3.h>
