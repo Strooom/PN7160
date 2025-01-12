@@ -255,7 +255,7 @@ void test_handleInitResponse() {
     nci::handleInitResponse();
     TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
     TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
-    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimeoutTimer.isRunning());
 }
 
 void test_handleGetConfigResponse() {
@@ -275,7 +275,7 @@ void test_handleGetConfigResponse() {
     nci::handleGetConfigResponse();
     TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
     TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
-    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimeoutTimer.isRunning());
 
     nci::reset();
     nci::handleGetConfigResponse();
@@ -292,7 +292,7 @@ void test_handleSetConfigResponse() {
     nci::handleSetConfigResponse();
     TEST_ASSERT_EQUAL(nciState::waitForDiscoverResponse, nci::getState());
     TEST_ASSERT_TRUE(nci::responseTimeoutTimer.isRunning());
-    TEST_ASSERT_TRUE(nci::noTagFoundTimoutTimer.isRunning());
+    TEST_ASSERT_TRUE(nci::noTagFoundTimeoutTimer.isRunning());
 }
 
 void test_handleRfDeactivationResponse() {
