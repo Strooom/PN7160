@@ -10,8 +10,8 @@
 const buildEnvironment buildInfo::theBuildEnvironment{buildEnvironment::local};
 const buildType buildInfo::theBuildType{buildType::development};
 const int buildInfo::mainVersionDigit   = 1;
-const int buildInfo::minorVersionDigit  = 0;
-const int buildInfo::patchVersionDigit  = 1;
-const char* buildInfo::lastCommitTag    = "b5ee249";
-const char* buildInfo::buildTimeStamp   = "Sun Jan 12 10:33:33 2025";
-const time_t buildInfo::buildEpoch      = 1736678013;
+const int buildInfo::minorVersionDigit  = 1;
+const int buildInfo::patchVersionDigit  = 0;
+const char* buildInfo::lastCommitTag    = "25870c5";
+const char* buildInfo::buildTimeStamp   = "Mon Jan 13 08:07:28 2025";
+const time_t buildInfo::buildEpoch      = 1736755648;

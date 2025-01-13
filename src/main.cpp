@@ -9,7 +9,7 @@ void setup() {
     logging::initialize();
     logging::enable(logging::destination::uart1);
     logging::enable(logging::source::criticalError);
-    //logging::enable(logging::source::nciMessages);
+    logging::enable(logging::source::nciMessages);
     //logging::enable(logging::source::stateChanges);
     logging::enable(logging::source::tagEvents);
     Serial.println("PN7160 driver demo");        // This line is only needed to make the cloud-build work : https://forum.pjrc.com/index.php?threads/undefined-reference-to-_write.71420/

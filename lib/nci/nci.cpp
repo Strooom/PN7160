@@ -171,22 +171,16 @@ void nci::sendGetConfig() {
 }
 
 void nci::handleGetConfigResponse() {
-    if (configLengthMatches() && configDataMatches()) {
-        pn7160ConfigCollection::activeConfig++;
-        if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
-            sendStartDiscover();
-            responseTimeoutTimer.start(standardResponseTimeout);
-            noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
-            moveState(nciState::waitForDiscoverResponse);
-        } else {
-            sendGetConfig();
-            responseTimeoutTimer.start(standardResponseTimeout);
-            moveState(nciState::waitForGetConfigResponse);
-        }
-    } else {
-        sendSetConfig();
+    pn7160ConfigCollection::activeConfig++;
+    if (pn7160ConfigCollection::activeConfig >= pn7160ConfigCollection::nmbrOfConfigs) {
+        sendStartDiscover();
         responseTimeoutTimer.start(standardResponseTimeout);
-        moveState(nciState::waitForSetConfigResponse);
+        noTagFoundTimeoutTimer.start(noTagDiscoveredTimeout);
+        moveState(nciState::waitForDiscoverResponse);
+    } else {
+        sendGetConfig();
+        responseTimeoutTimer.start(standardResponseTimeout);
+        moveState(nciState::waitForGetConfigResponse);
     }
 }
 
@@ -440,6 +434,3 @@ groupIdentifier nci::getGroupIdentifier(const uint8_t msgBuffer[]) {
 opcodeIdentifier nci::getOpcodeIdentifier(const uint8_t msgBuffer[]) {
     return static_cast<opcodeIdentifier>(msgBuffer[1] & 0x3F);
 }
-
-
-
