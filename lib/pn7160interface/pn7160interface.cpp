@@ -8,11 +8,17 @@
 // ###                                                                       ###
 // #############################################################################
 
-#include <pn7160interface.hpp>
+#include "pn7160interface.hpp"
 
 #ifndef generic
 #include <Arduino.h>
+
+#ifdef PN7160_RP2040
+#include <Wire.h>
+#else
 #include <i2c_t3.h>
+#endif
+
 #else
 #include <cstring>
 bool PN7160Interface::mockIrqPin{false};

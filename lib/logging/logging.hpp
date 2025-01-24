@@ -13,7 +13,7 @@ class logging {
     static void initialize();
     enum class destination : uint32_t {        // We can send logging to the following destinations, when they are connected and enabled :
         none,
-        uart1
+        destUart1
     };
     enum class source : uint32_t {        // We can send logging from the following sources, when they are enabled :
         stateChanges       = 0,
