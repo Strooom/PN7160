@@ -5,7 +5,7 @@
 // ### Changes will be overwritten on the next build                      ###
 // ##########################################################################
 
-#include <buildinfo.hpp>
+#include "buildinfo.hpp"
 
 const buildEnvironment buildInfo::theBuildEnvironment{buildEnvironment::local};
 const buildType buildInfo::theBuildType{buildType::development};

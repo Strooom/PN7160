@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include <pn7160config.hpp>
+#include "pn7160config.hpp"
 
 class pn7160ConfigCollection {
  

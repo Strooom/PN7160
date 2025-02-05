@@ -1,0 +1,23 @@
+{
+  "name": "PN7160",
+  "version": "1.1.0",
+  "description": "Library for driving the PN7160, an NFC controller.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Strooom/PN7160.git"
+  },
+  "frameworks": "*",
+  "platforms": "*",
+  "build" : {
+    "includeDir" : "lib",
+    "srcDir" : "lib",
+    "srcFilter": ["-<*>", "+<**/*.cpp>", "+<**/*.hpp>"]
+  },
+  "authors":
+  [
+    {
+      "name": "Strooom",
+      "email": "pascal.roobrouck@gmail.com"
+    }
+  ]
+}

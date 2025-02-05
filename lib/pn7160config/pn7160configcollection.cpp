@@ -1,4 +1,4 @@
-#include <pn7160configcollection.hpp>
+#include "pn7160configcollection.hpp"
 
 // payload bytes for PN7160 configs
 
