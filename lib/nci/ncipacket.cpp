@@ -26,10 +26,14 @@ const char* toString(nciMessageId messageId) {
             return "RF_DISCOVER_RSP";
         case nciMessageId::RF_DISCOVER_NTF:
             return "RF_DISCOVER_NTF";
-        case nciMessageId::RF_INTF_ACTIVATED_NTF:
-            return "RF_INTF_ACTIVATED_NTF";
+        case nciMessageId::RF_DEACTIVATE_CMD:
+            return "RF_DEACTIVATE_CMD";
         case nciMessageId::RF_DEACTIVATE_RSP:
             return "RF_DEACTIVATE_RSP";
+        case nciMessageId::RF_DEACTIVATE_NTF:
+            return "RF_DEACTIVATE_NTF";
+        case nciMessageId::RF_INTF_ACTIVATED_NTF:
+            return "RF_INTF_ACTIVATED_NTF";
         default:
             return "Unknown Message";
     }

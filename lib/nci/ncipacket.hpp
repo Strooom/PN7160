@@ -69,7 +69,7 @@ enum class nciMessageId : uint16_t {
 
     CORE_GET_CONFIG_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_GET_CONFIG_CMD),
     CORE_GET_CONFIG_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_GET_CONFIG_RSP),
-    
+
     CORE_SET_CONFIG_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_SET_CONFIG_CMD),
     CORE_SET_CONFIG_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::Core)) << 8 | static_cast<uint16_t>(opcodeIdentifier::CORE_SET_CONFIG_RSP),
 
@@ -78,15 +78,15 @@ enum class nciMessageId : uint16_t {
     RF_DISCOVER_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DISCOVER_NTF),
 
     RF_INTF_ACTIVATED_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_INTF_ACTIVATED_NTF),
-    RF_DEACTIVATE_RSP     = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_RSP),
-    RF_DEACTIVATE_NTF     = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_NTF),
+
+    RF_DEACTIVATE_CMD = (static_cast<uint16_t>(messageType::Command) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_CMD),
+    RF_DEACTIVATE_RSP = (static_cast<uint16_t>(messageType::Response) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_RSP),
+    RF_DEACTIVATE_NTF = (static_cast<uint16_t>(messageType::Notification) | static_cast<uint16_t>(groupIdentifier::RfManagement)) << 8 | static_cast<uint16_t>(opcodeIdentifier::RF_DEACTIVATE_NTF),
 };
 
 const char* toString(nciMessageId messageId);
 
-
-
-enum class nciStatus : uint8_t{
+enum class nciStatus : uint8_t {
     // Generic Status Codes
     ok               = 0x00,
     rejected         = 0x01,
