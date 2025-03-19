@@ -52,4 +52,8 @@ void loop() {
         default:
             break;
     }
+
+    nciState currentNciState = nci::getState();
+    if (currentNciState == nciState::error)
+        nci::reset();
 }
