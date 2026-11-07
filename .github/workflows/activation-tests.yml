@@ -1,0 +1,17 @@
+name: Activation parser tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  activation-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test activation parsing with sanitizers
+        run: python3 test/activation/run.py
