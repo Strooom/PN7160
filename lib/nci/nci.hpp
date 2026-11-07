@@ -72,7 +72,7 @@ class nci {
 
     static constexpr unsigned long scanPeriod{500};
     static constexpr unsigned long waitForReDiscoverTimeout{500};
-    static void readTagData();
+    static bool readTagData();
 
     static constexpr unsigned long standardResponseTimeout{10U};
     static constexpr unsigned long noTagDiscoveredTimeout{500U};

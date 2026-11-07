@@ -284,15 +284,30 @@ void nci::handleRfDiscoverResponse() {
 }
 
 void nci::handleRfInterfaceActivatedNotification() {
-    readTagData();
+    if (!readTagData()) {
+        theTagStatus = tagStatus::absent;
+        moveState(nciState::error);
+        return;
+    }
     sendRfDeactivate();
     responseTimeoutTimer.start(standardResponseTimeout);
     moveState(nciState::waitForRfDeactivateResponse);
 }
 
-void nci::readTagData() {
-    tag receivedTag;
+bool nci::readTagData() {
+    // NFC-A poll technology parameters start at byte 10 (including NCI header).
+    // Validate the complete declared field before accessing any UID byte. The
+    // receive buffer retains previous packets beyond rxMessageLength.
     static constexpr uint8_t byeOffset{12};
+    if (rxMessageLength <= byeOffset || rxMessageLength != msgHeaderSize + rxBuffer[2]
+        || rxBuffer[6] != 0x00) return false;
+    const uint32_t technologyEnd = 10U + rxBuffer[9];
+    const uint8_t length = rxBuffer[byeOffset];
+    if ((length != 4 && length != 7 && length != 10)
+        || technologyEnd > rxMessageLength || technologyEnd < 14U + length) return false;
+    const uint8_t selLength = rxBuffer[13U + length];
+    if (selLength > 1 || 14U + length + selLength > technologyEnd) return false;
+    tag receivedTag;
     receivedTag.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
     if (receivedTag == tagData) {
         theTagStatus = tagStatus::old;
@@ -300,6 +315,7 @@ void nci::readTagData() {
         theTagStatus = tagStatus::foundNew;
         tagData.setUniqueId(rxBuffer[byeOffset], rxBuffer + byeOffset + 1);
     }
+    return true;
 }
 
 void nci::sendRfDeactivate() {
