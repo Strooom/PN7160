@@ -1,0 +1,17 @@
+name: Cooperative reader tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reader-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test the cooperative reader and both transport branches
+        run: python3 test/reader/run.py
