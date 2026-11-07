@@ -12,3 +12,51 @@ All documentation is in the Repository Wiki : https://github.com/Strooom/PN7160/
 
 
 ![PN7160](https://github.com/Strooom/PN7160/blob/develop/docs/pn7160.png)
+
+## ESP32 Arduino I2C transport
+
+An ESP32-specific transport is selected by `ARDUINO_ARCH_ESP32`. The existing
+initialization API remains available; an additional overload accepts a shared
+`TwoWire` instance, explicit SDA/SCL, IRQ/VEN, address and bus clock:
+
+```cpp
+#include <Wire.h>
+#include "pn7160interface/pn7160interface.hpp"
+#include "nci/nci.hpp"
+
+bool ready = false;
+void setup() {
+    // Adjust every pin for the actual reader and board.
+    ready = PN7160Interface::initialize(Wire, 14, 13, 0x28, 21, 22, 400000);
+    if (ready) nci::reset();
+}
+void loop() {
+    if (ready) nci::run();
+}
+// PN7160Interface::initialize(14, 13) also works with Wire's default pins.
+```
+
+Initialization reserves a 258-byte Wire buffer for the three-byte NCI header
+and maximum 255-byte payload, sets a 20 ms I2C timeout, checks bus setup, and
+configures IRQ/VEN. Writes report short transfers and failed acknowledgements.
+Reads check the complete header and payload before publishing the header; a
+failed read clears the header so the NCI engine cannot reuse a previous reply.
+Wake-up probes use the existing bounded retry count/delay.
+
+The caller owns the supplied bus and must keep it alive. The driver never calls
+`Wire.end()`. Other users must agree on pins, clock, timeout and buffer settings.
+The transport and NCI engine are static and support one reader; serialize calls
+and initialization externally. This adds an I2C platform port, not a new reader
+facade or additional NFC protocol implementation.
+
+The previous RP2040, Teensy and generic transport code remains in its original
+branch. This change is based on upstream `RP2040`, which already contains the
+reusable library layout and RP2040 support.
+
+Run `python3 test/esp32/run.py` for host-side regression tests with AddressSanitizer
+and UndefinedBehaviorSanitizer. They compile the actual transport and NCI engine
+against simulated Arduino/Wire APIs, covering ESP32 initialization, bus selection,
+maximum packets, transfer failures, UID discovery/repeats/removal, and the existing
+initialization API. A separate executable checks the legacy RP2040 transport
+branch. These are simulated API tests; real SDK builds, electrical behavior and
+RF timing still require validation on the target hardware.
