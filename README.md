@@ -12,3 +12,96 @@ All documentation is in the Repository Wiki : https://github.com/Strooom/PN7160/
 
 
 ![PN7160](https://github.com/Strooom/PN7160/blob/develop/docs/pn7160.png)
+
+## ESP32 Arduino I2C transport
+
+An ESP32-specific transport is selected by `ARDUINO_ARCH_ESP32`. The existing
+initialization API remains available; an additional overload accepts a shared
+`TwoWire` instance, explicit SDA/SCL, IRQ/VEN, address and bus clock:
+
+```cpp
+#include <Wire.h>
+#include "pn7160interface/pn7160interface.hpp"
+#include "nci/nci.hpp"
+
+bool ready = false;
+void setup() {
+    // Adjust every pin for the actual reader and board.
+    ready = PN7160Interface::initialize(Wire, 14, 13, 0x28, 21, 22, 400000);
+    if (ready) nci::reset();
+}
+void loop() {
+    if (ready) nci::run();
+}
+// PN7160Interface::initialize(14, 13) also works with Wire's default pins.
+```
+
+Initialization reserves a 258-byte Wire buffer for the three-byte NCI header
+and maximum 255-byte payload, sets a 20 ms I2C timeout, checks bus setup, and
+configures IRQ/VEN. Writes report short transfers and failed acknowledgements.
+Reads check the complete header and payload before publishing the header; a
+failed read clears the header so the NCI engine cannot reuse a previous reply.
+Wake-up probes use the existing bounded retry count/delay.
+
+The caller owns the supplied bus and must keep it alive. The driver never calls
+`Wire.end()`. Other users must agree on pins, clock, timeout and buffer settings.
+The transport and NCI engine are static and support one reader; serialize calls
+and initialization externally. This adds an I2C platform port, not a new reader
+facade or additional NFC protocol implementation.
+
+The previous RP2040, Teensy and generic transport code remains in its original
+branch. This change is based on upstream `RP2040`, which already contains the
+reusable library layout and RP2040 support.
+
+Run `python3 test/esp32/run.py` for host-side regression tests with AddressSanitizer
+and UndefinedBehaviorSanitizer. They compile the actual transport and NCI engine
+against simulated Arduino/Wire APIs, covering ESP32 initialization, bus selection,
+maximum packets, transfer failures, UID discovery/repeats/removal, and the existing
+initialization API. A separate executable checks the legacy RP2040 transport
+branch. These are simulated API tests; real SDK builds, electrical behavior and
+RF timing still require validation on the target hardware.
+
+## Cooperative UID reader facade
+
+`PN7160Reader` in `reader/pn7160reader.hpp` wraps the existing static transport
+and NCI state machine. It adds no worker task: call `pollForTag()` or
+`isTagStillPresent()` regularly from one task. Each call advances one NCI step
+when needed; normal I2C operations still have their transport timeout bounds.
+Logging destinations and verbosity remain under caller control.
+
+```cpp
+#include <Wire.h>
+#include "reader/pn7160reader.hpp"
+
+PN7160Reader::Config config;
+// In setup, set IRQ/VEN and optional DWL for your board. For ESP32 also set
+// config.wire, SDA/SCL, address and clock; RP2040 uses the existing Wire path.
+// Construct one PN7160Reader with this configuration, then call init().
+```
+
+`init()` configures the interface and resets the cooperative engine, rather
+than waiting for the hardware startup/discovery sequence to finish.
+`beginDiscovery()` reports whether the engine can be driven; polling performs
+the startup. `discoveryReady()` stays false until scanning is reached and is
+false on engine errors. `healthCheck()` reports initialization/NCI error state;
+it does not issue an active hardware probe. `isConnected()` reports successful
+interface initialization, not a fresh physical link check.
+
+`pollForTag(uid)` clears its output on unsuccessful calls and returns 4/7/10-byte
+UIDs from new-tag notifications. Existing NCI repeat suppression remains active.
+If a different tag arrives during presence monitoring, it is retained for the
+next poll instead of being consumed as the previous tag's presence.
+Presence/removal timing remains the existing NCI behavior. `releaseTag()` is a
+compatibility no-op because the legacy engine manages RF deactivation itself.
+
+`stop()` drives VEN low, resets the NCI/tag state and clears pending output; it
+never calls `Wire.end()`. To recover an errored engine, call `stop()` then
+`init()`. Keep the supplied bus alive and use one reader per MCU: separate
+facade instances do not create separate NCI engines. Copying/moving is disabled.
+This facade provides UID operations, not ISO-DEP/APDU or ECP functionality.
+
+Run `python3 test/reader/run.py` for sanitizer-backed tests compiling the real
+facade, NCI engine and transport with simulated Arduino/Wire APIs. Both ESP32
+and RP2040 branches cover reset sequencing, readiness, valid UID lengths,
+repeat/removal handling, replacement-tag delivery, errors, stop/reinit and
+invalid configuration. Physical RF and native SDK builds remain separate checks.
