@@ -15,9 +15,17 @@
 
 #include <stdint.h>
 
+#if defined(ARDUINO_ARCH_ESP32) && !defined(generic)
+class TwoWire;
+#endif
+
 class PN7160Interface {
   public:
     static void initialize(uint8_t IRQpin, uint8_t VENpin, uint8_t I2Caddress = 0x28);
+#if defined(ARDUINO_ARCH_ESP32) && !defined(generic)
+    static bool initialize(TwoWire &bus, int8_t IRQpin, int8_t VENpin, uint8_t I2Caddress = 0x28,
+                           int8_t sda = -1, int8_t scl = -1, uint32_t clock = 400000);
+#endif
     static void setVenPin(bool highOrLow);
     static bool wakeUp();
     static uint8_t write(const uint8_t data[], const uint32_t dataLength);
@@ -26,6 +34,10 @@ class PN7160Interface {
 
 #ifndef unitTesting
   private:
+#endif
+#if defined(ARDUINO_ARCH_ESP32) && !defined(generic)
+    static TwoWire *espBus;
+    static bool espReady;
 #endif
     static uint8_t IRQpin;
     static uint8_t VENpin;
